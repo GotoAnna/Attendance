@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -29,21 +30,35 @@ class LoginViewController: UIViewController {
         errorLabel.alpha = 0
         
         //スタイル
-        Utilities.styleTextField(userNameTextField)
+        Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
         Utilities.styleFilledButton(loginButton)
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
     @IBAction func loginTapped(_ sender: Any) {
+        
+        //入力内容の検証
+        let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        //ユーザーにサンイン
+        Auth.auth().signIn(withEmail: email, password: password){
+            (result, error) in
+            
+            if error != nil{
+                //サンインできない
+                self.errorLabel.text = error!.localizedDescription
+                self.errorLabel.alpha = 1
+            }
+            else{
+               /* let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
+                
+                self.view.window?.rootViewController = homeViewController
+                self.view.window?.makeKeyAndVisible()*/
+                
+                self.performSegue(withIdentifier: "toHome", sender: self)
+            }
+        }
     }
 }
