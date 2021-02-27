@@ -72,6 +72,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return roomsArray.count
     }
     
+    //セルに内容を表示
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
@@ -85,6 +86,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    //セルをタップ
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           
             print("部屋名:\(roomsArray[indexPath.row].roomName!)")
@@ -97,21 +99,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                
                 print("消去部屋名:\(roomsArray[indexPath.row].roomName!)")
                 
-                roomsArray.remove(at: indexPath.row)
-                //roomnumberArray.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-                
                 Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).delete() { err in
                     if let err = err {
                         print("Error removing document: \(err)")
                     } else {
                         print("Document successfully removed!")
                     }
+                }
+                    
+                roomsArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
                     
                 //消去した内容を保存
                 //UserDefaults.standard.set(self.roomsArray, forKey: "RoomName")
                 //UserDefaults.standard.set(roomsArray, forKey: "RoomNumber")
-             }
+             
     }
         
 }
