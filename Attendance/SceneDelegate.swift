@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        //もし一度ログインしたユーザーだったら, skipLogin()を呼ぶ
+        if Auth.auth().currentUser != nil{
+           // skipLogin()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,6 +53,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func skipLogin(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        //ログイン後に飛ぶ画面
+        let HomeViewController = storyboard.instantiateViewController(identifier: "HomeVC")
+        
+        //rootViewController(初期画面)をHomeViewControllerにする
+        window?.rootViewController = HomeViewController
+        
+        //画面を表示
+        window?.makeKeyAndVisible()
+        
+        
+    }
 
 }
 

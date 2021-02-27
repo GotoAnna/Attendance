@@ -6,8 +6,7 @@
 //
 
 import UIKit
-var roomnameArray = [String]()
-var roomnumberArray = [String]()
+import Firebase
 
 class CreateRoomViewController: UIViewController {
 
@@ -21,20 +20,46 @@ class CreateRoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Do any additional setup after loading the view.
+        fetchUserInfoFromFirestore()
+        
     }
     
-
+    private func fetchUserInfoFromFirestore(){
+        let db = Firestore.firestore()
+        
+        /*db.collection("room").doc("roomname").update({
+            roomname: firebase.firestore.FieldValue.arrayUnion('zaru', 'soba')
+        })*/
+        db.collection("users").getDocuments{(snapshots, err) in
+            if let err = err{
+                print("user情報の取得に失敗\(err)")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+                let data = snapshot.data()
+                
+                print("data: ", data)
+            })
+        }
+       
+        
+    }
 
     @IBAction func createRoom(_ sender: Any) {
         
-        roomnameArray.append(roomnameTextField.text!)
-        roomnumberArray.append(roomnumberTextField.text!)
+        //roomnameArray.append(roomnameTextField.text!)
+        //roomnumberArray.append(roomnumberTextField.text!)
         
-        UserDefaults.standard.set(roomnameArray, forKey: "RoomName") //変数の中身をUserDefaultsに追加
-        UserDefaults.standard.set(roomnumberArray, forKey: "RoomNumber")
+        //UserDefaults.standard.set(roomnameArray, forKey: "RoomName") //変数の中身をUserDefaultsに追加
+        //UserDefaults.standard.set(roomnumberArray, forKey: "RoomNumber")
         
-        print(roomnameArray)
+        let roomName = roomnameTextField.text!
+        let roomNumber = roomnumberTextField.text!
+        
+        Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber])
+        //addDocument(data: ["roomname":roomName, "roomnumber":roomNumber])
         
         let alert: UIAlertController = UIAlertController(title:"保存", message: "保存が完了しました。", preferredStyle: .alert)
         
