@@ -23,6 +23,10 @@
 		04EB2A3C25E6B7FD00A38A7D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A3B25E6B7FD00A38A7D /* Utilities.swift */; };
 		04EB2A5A25E6D1FF00A38A7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A5925E6D1FF00A38A7D /* HomeViewController.swift */; };
 		04EB2A5F25E6D40200A38A7D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A5E25E6D40200A38A7D /* Constants.swift */; };
+		04EB2A6F25E94C0100A38A7D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A6E25E94C0100A38A7D /* CustomTableViewCell.swift */; };
+		04EB2A7425E9552100A38A7D /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A7325E9552100A38A7D /* AddViewController.swift */; };
+		04EB2A7F25E9620100A38A7D /* AddCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A7E25E9620100A38A7D /* AddCustomTableViewCell.swift */; };
+		04EB2A8425E96F0C00A38A7D /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A8325E96F0C00A38A7D /* CreateRoomViewController.swift */; };
 		3879B3C3198D407919A4987D /* Pods_Attendance_AttendanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B149676B660DF01A30652A7 /* Pods_Attendance_AttendanceUITests.framework */; };
 		87F3DBBD2CCB840E043053A9 /* Pods_AttendanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E7DC8C1AE2392389EC6D5CE /* Pods_AttendanceTests.framework */; };
 		8AA13A5B10404E1D43392351 /* Pods_Attendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD3A74A60D9452923FB082E9 /* Pods_Attendance.framework */; };
@@ -68,6 +72,10 @@
 		04EB2A3B25E6B7FD00A38A7D /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		04EB2A5925E6D1FF00A38A7D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		04EB2A5E25E6D40200A38A7D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		04EB2A6E25E94C0100A38A7D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		04EB2A7325E9552100A38A7D /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		04EB2A7E25E9620100A38A7D /* AddCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTableViewCell.swift; sourceTree = "<group>"; };
+		04EB2A8325E96F0C00A38A7D /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		4ABAC0A432785D3D35F6DF48 /* Pods-Attendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Attendance.release.xcconfig"; path = "Target Support Files/Pods-Attendance/Pods-Attendance.release.xcconfig"; sourceTree = "<group>"; };
 		6B149676B660DF01A30652A7 /* Pods_Attendance_AttendanceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Attendance_AttendanceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7DC8C1AE2392389EC6D5CE /* Pods_AttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,10 +145,11 @@
 				04EB2A2725E6973E00A38A7D /* SignUpAccountViewController.swift */,
 				04EB2A2225E6970B00A38A7D /* LoginAccountViewController.swift */,
 				0418435325E50C38003FE731 /* ViewController.swift */,
-				04EB2A5925E6D1FF00A38A7D /* HomeViewController.swift */,
 				04EB2A3B25E6B7FD00A38A7D /* Utilities.swift */,
 				04EB2A5E25E6D40200A38A7D /* Constants.swift */,
 				04EB2A3125E6A0A100A38A7D /* View Controller */,
+				04EB2A5925E6D1FF00A38A7D /* HomeViewController.swift */,
+				04EB2A7325E9552100A38A7D /* AddViewController.swift */,
 				0418438A25E5108C003FE731 /* GoogleService-Info.plist */,
 				0418434F25E50C38003FE731 /* AppDelegate.swift */,
 				0418435125E50C38003FE731 /* SceneDelegate.swift */,
@@ -148,6 +157,9 @@
 				0418435825E50C39003FE731 /* Assets.xcassets */,
 				0418435A25E50C39003FE731 /* LaunchScreen.storyboard */,
 				0418435D25E50C39003FE731 /* Info.plist */,
+				04EB2A6E25E94C0100A38A7D /* CustomTableViewCell.swift */,
+				04EB2A7E25E9620100A38A7D /* AddCustomTableViewCell.swift */,
+				04EB2A8325E96F0C00A38A7D /* CreateRoomViewController.swift */,
 			);
 			path = Attendance;
 			sourceTree = "<group>";
@@ -439,8 +451,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EB2A7F25E9620100A38A7D /* AddCustomTableViewCell.swift in Sources */,
 				04EB2A2D25E69DC300A38A7D /* LoginViewController.swift in Sources */,
 				04EB2A2325E6970B00A38A7D /* LoginAccountViewController.swift in Sources */,
+				04EB2A8425E96F0C00A38A7D /* CreateRoomViewController.swift in Sources */,
+				04EB2A7425E9552100A38A7D /* AddViewController.swift in Sources */,
+				04EB2A6F25E94C0100A38A7D /* CustomTableViewCell.swift in Sources */,
 				0418435425E50C38003FE731 /* ViewController.swift in Sources */,
 				04EB2A2825E6973E00A38A7D /* SignUpAccountViewController.swift in Sources */,
 				04EB2A1E25E696D300A38A7D /* SignUpUserViewController.swift in Sources */,
