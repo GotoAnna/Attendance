@@ -14,6 +14,8 @@ class HomeViewController: UIViewController {
     var roomsArray = [Rooms]()
     
     let createRoom = CreateRoomViewController()
+    var roomname: String!
+    var num: Int = 0
     
     @IBOutlet weak var homeTableView: UITableView!
     
@@ -60,7 +62,7 @@ class HomeViewController: UIViewController {
                 //print("配列：\(Attendance.Rooms.self)")
             }
         }
-       
+        
     }
 }
 
@@ -79,18 +81,31 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
+        roomname = roomsArray[indexPath.row].roomName
         //cell.roomLabel.text = createRoom.roomnameArray[indexPath.row]
         //cell.numberLabel.text = createRoom.roomnumberArray[indexPath.row]
-        
         
         return cell
     }
     
     //セルをタップ
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          
+        
+            num = indexPath.row
             print("部屋名:\(roomsArray[indexPath.row].roomName!)")
             performSegue(withIdentifier: "toAdd", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+        if (segue.identifier == "toAdd") {
+           
+            let next: AddViewController = (segue.destination as? AddViewController)!
+            
+            next.enterRoom = roomsArray[num].roomName
+            
+            print("入室prepare")
+           // print("入室\(next.enterRoom)")
+        }
     }
     
     //セルの消去

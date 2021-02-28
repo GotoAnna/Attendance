@@ -484,12 +484,12 @@
         <!--部屋名-->
         <scene sceneID="chJ-w0-5bK">
             <objects>
-                <viewController id="t8G-t5-NUF" customClass="AddViewController" customModule="Attendance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="toAdd" id="t8G-t5-NUF" customClass="AddViewController" customModule="Attendance" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hHV-ky-UKF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-Ns-b8g">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-Ns-b8g">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -546,11 +546,15 @@
                                 <rect key="frame" x="348" y="7" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="入室"/>
+                                <connections>
+                                    <action selector="EnterButton" destination="t8G-t5-NUF" eventType="touchUpInside" id="f0u-Dj-AP0"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addTableView" destination="FXA-Ns-b8g" id="tbp-lH-yxb"/>
+                        <outlet property="enterButton" destination="SlQ-nA-fCX" id="M3I-Kl-NRD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tDq-8A-7v3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -655,7 +659,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XTe-7V-QJY"/>
+        <segue reference="wT2-cu-rbn"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

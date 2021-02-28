@@ -43,8 +43,6 @@ class CreateRoomViewController: UIViewController {
                 print("data: ", data)
             })
         }
-       
-        
     }
 
     @IBAction func createRoom(_ sender: Any) {

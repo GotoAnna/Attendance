@@ -12,11 +12,13 @@ class Rooms{
     
     let roomName: String!
     let roomNumber: String!
+    let enterUser: String!
     
     init(document: QueryDocumentSnapshot) {
     
         let Dic = document.data()
         self.roomName = Dic["roomName"] as? String ?? ""
         self.roomNumber = Dic["roomNumber"] as? String ?? ""
+        self.enterUser = Dic["enterUserID"] as? String ?? ""
     }
 }
