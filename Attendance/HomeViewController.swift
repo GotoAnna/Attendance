@@ -103,7 +103,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
             next.enterRoom = roomsArray[num].roomName
             
-            print("入室prepare")
+            //print("入室prepare")
            // print("入室\(next.enterRoom)")
         }
     }

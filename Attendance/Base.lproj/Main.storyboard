@@ -479,7 +479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rvc-a0-S6W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3533" y="1009"/>
+            <point key="canvasLocation" x="3531.884057971015" y="1008.4821428571428"/>
         </scene>
         <!--部屋名-->
         <scene sceneID="chJ-w0-5bK">
@@ -541,20 +541,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="部屋名" id="cXo-Iy-BIe">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="SlQ-nA-fCX">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="TO2-aV-FBv">
-                                <rect key="frame" x="348" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="入室"/>
-                                <connections>
-                                    <action selector="EnterButton" destination="t8G-t5-NUF" eventType="touchUpInside" id="f0u-Dj-AP0"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="入室" id="cHe-i0-yJ2">
+                            <connections>
+                                <action selector="onClickEnterButton" destination="t8G-t5-NUF" id="IuS-Cv-L2v"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addTableView" destination="FXA-Ns-b8g" id="tbp-lH-yxb"/>
-                        <outlet property="enterButton" destination="SlQ-nA-fCX" id="M3I-Kl-NRD"/>
+                        <outlet property="enterButton" destination="cHe-i0-yJ2" id="Zio-rG-cGe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tDq-8A-7v3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

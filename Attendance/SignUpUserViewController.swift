@@ -84,12 +84,11 @@ class SignUpUserViewController: UIViewController {
                 else{
                     //成功したら, 名前をストアに保存
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["username":userName, "uid": result!.user.uid]){(error) in
-                        
+                    db.collection("users").addDocument(data: ["username": userName, "uid": result!.user.uid]){(error) in
+                       
                         if error != nil{
                             self.showError("User date couldn't")
                         }
-                        
                     }
                     //ホーム画面に移行
                     self.transitionToHome()
