@@ -26,7 +26,25 @@ class SignUpUserViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))//ツールバーのインスタンス生成
+        toolBar.barStyle = UIBarStyle.default //スタイルを設定
+        toolBar.sizeToFit() //画面はばに合わせてサイズを変更
+        
+        //閉じるボタンをみぎに配置するためのスペース
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        // 閉じるボタン
+        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(SignUpUserViewController.commitButtonTapped))
+        //スペース、閉じるボタンを右側に配置
+        toolBar.items = [spacer, commitButton]
+        // テキストフィールドにツールバーを設定
+        userNameTextField.inputAccessoryView = toolBar
+        emailTextField.inputAccessoryView = toolBar
+        passwordTextField.inputAccessoryView = toolBar
     }
+    
+    @objc func commitButtonTapped() {
+            self.view.endEditing(true)
+        }
     
     func setUpElements(){
         errorLabel.alpha = 0 //エラーを隠す
@@ -86,6 +104,16 @@ class SignUpUserViewController: UIViewController {
                     let db = Firestore.firestore()
                     db.collection("users").addDocument(data: ["username": userName, "uid": result!.user.uid]){(error) in
                        
+                       let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = userName
+                        changeRequest?.commitChanges { (error) in
+                            if let error = error {
+                                      print("エラー")
+                                    } else {
+                                      print("成功:\(changeRequest?.displayName)")
+                                    }
+                        }
+                        
                         if error != nil{
                             self.showError("User date couldn't")
                         }

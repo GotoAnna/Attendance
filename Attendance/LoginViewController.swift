@@ -10,6 +10,8 @@ import Firebase
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var userNameTextField: UITextField!
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -30,6 +32,7 @@ class LoginViewController: UIViewController {
         errorLabel.alpha = 0
         
         //スタイル
+        Utilities.styleTextField(userNameTextField)
         Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
         Utilities.styleFilledButton(loginButton)
@@ -40,6 +43,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginTapped(_ sender: Any) {
         
         //入力内容の検証
+        let userName = userNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         //ユーザーにサンイン
@@ -52,6 +56,15 @@ class LoginViewController: UIViewController {
                 self.errorLabel.alpha = 1
             }
             else{
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                 changeRequest?.displayName = userName
+                 changeRequest?.commitChanges { (error) in
+                     if let error = error {
+                               print("エラー")
+                             } else {
+                               print("成功:\(changeRequest?.displayName)")
+                             }
+                 }
                /* let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
                 
                 self.view.window?.rootViewController = homeViewController

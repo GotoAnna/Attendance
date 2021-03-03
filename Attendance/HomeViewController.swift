@@ -25,18 +25,6 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         homeTableView.delegate = self
         homeTableView.dataSource = self
-        
-            
-      /*  if UserDefaults.standard.object(forKey: "RoomName") != nil{
-             
-            //createRoom.roomnameArray = UserDefaults.standard.object(forKey: "RoomName") as! [String]
-            roomnameArray = UserDefaults.standard.object(forKey: "RoomName") as! [String]
-         }
-        if UserDefaults.standard.object(forKey: "RoomNumber") != nil{
-             
-            //createRoom.roomnumberArray = UserDefaults.standard.object(forKey: "RoomNumber") as! [String]
-            roomnumberArray = UserDefaults.standard.object(forKey: "RoomNumber") as! [String]
-         }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,8 +70,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
-        //cell.roomLabel.text = createRoom.roomnameArray[indexPath.row]
-        //cell.numberLabel.text = createRoom.roomnumberArray[indexPath.row]
         
         return cell
     }
@@ -102,9 +88,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             let next: AddViewController = (segue.destination as? AddViewController)!
             
             next.enterRoom = roomsArray[num].roomName
-            
-            //print("入室prepare")
-           // print("入室\(next.enterRoom)")
         }
     }
     
@@ -124,10 +107,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                 roomsArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-                    
-                //消去した内容を保存
-                //UserDefaults.standard.set(self.roomsArray, forKey: "RoomName")
-                //UserDefaults.standard.set(roomsArray, forKey: "RoomNumber")
              
     }
         

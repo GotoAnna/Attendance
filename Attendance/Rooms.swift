@@ -22,7 +22,7 @@ class Rooms{
         self.roomName = Dic["roomName"] as? String ?? ""
         self.roomNumber = Dic["roomNumber"] as? String ?? ""
         self.enterUser = Dic["enterUserID"] as? String ?? ""
-        self.enterName = Dic["username"] as? String ?? ""
+        self.enterName = Dic["enterUserName"] as? String ?? ""
         self.userId = Dic["uid"] as? String ?? ""
     }
 }
