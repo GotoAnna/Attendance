@@ -47,12 +47,6 @@ class CreateRoomViewController: UIViewController {
 
     @IBAction func createRoom(_ sender: Any) {
         
-        //roomnameArray.append(roomnameTextField.text!)
-        //roomnumberArray.append(roomnumberTextField.text!)
-        
-        //UserDefaults.standard.set(roomnameArray, forKey: "RoomName") //変数の中身をUserDefaultsに追加
-        //UserDefaults.standard.set(roomnumberArray, forKey: "RoomNumber")
-        
         let roomName = roomnameTextField.text!
         let roomNumber = roomnumberTextField.text!
         

@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+
 class AddViewController: UIViewController {
 
     private let cellid = "cellid"
@@ -17,8 +18,11 @@ class AddViewController: UIViewController {
     var enterArray = [Rooms]()
     var enterUserName = [Rooms]()
     var enterNameCopy = [Rooms]()
+    var enterNumArray = [Rooms]()
     var EnterUser: String!
     var enterFlag: Int = 0
+    var iconArray = [Int]()
+    var num: Int = 0
     
     @IBOutlet weak var addTableView: UITableView!
     
@@ -33,6 +37,8 @@ class AddViewController: UIViewController {
     
         let enterName = Firestore.firestore().collection("users")
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
+        let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
+        
         self.enterArray = [Rooms]()
         
         let user = Auth.auth().currentUser
@@ -158,7 +164,7 @@ class AddViewController: UIViewController {
             snapshots?.documents.forEach({ (snapshot) in
                 let room = Rooms(document: snapshot)
                 self.enterArray.append(room)
-                print("名前：\(room.enterName)")
+                //print("名前：\(room.enterName)")
             })
             DispatchQueue.main.async {
                 self.addTableView.reloadData() //TableViewの更新
@@ -170,8 +176,24 @@ class AddViewController: UIViewController {
 
 extension AddViewController: UITableViewDelegate, UITableViewDataSource{
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
         
+        Firestore.firestore().collection("room").document(enterRoom).updateData(["roomEnterNum": String(enterArray.count)])
+      /*  self.enterNumArray = [Rooms]()
+        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
+            if let err = err{
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+               // let dic = snapshot.data()
+                let room = Rooms(document: snapshot)
+                self.enterNumArray.append(room)
+                //print("add名前：\(room.roomName)")
+                print("add人数：\(room.roomEnterNum)")
+            })
+        }*/
         return enterArray.count
     }
     
@@ -200,4 +222,18 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
            // performSegue(withIdentifier: "toAdd", sender: nil)
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if (segue.identifier=="toHome") {
+                let vcHome = segue.destination as! HomeViewController;
+                
+                iconArray = [Int]()
+                iconArray.append(enterArray.count)
+                vcHome.num = enterArray.count
+                
+               
+                
+                vcHome.setupMethod();
+            }
+        }
 }

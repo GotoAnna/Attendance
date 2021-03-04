@@ -16,8 +16,13 @@ class HomeViewController: UIViewController {
     let createRoom = CreateRoomViewController()
     var roomname: String!
     var num: Int = 0
+    var back: Int = 0
+    //var icon = [String]()
+    //var icon = AddViewController()
     
     @IBOutlet weak var homeTableView: UITableView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
         
+        print("back:\(back)")
         roomsArray = [Rooms]()
         
         Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
@@ -41,8 +47,9 @@ class HomeViewController: UIViewController {
                // let dic = snapshot.data()
                 let room = Rooms(document: snapshot)
                 self.roomsArray.append(room)
-                print(room.roomName)
-                print(room.roomNumber)
+                //print(room.roomName)
+                //print(room.roomNumber)
+                print("人数：\(room.roomEnterNum)")
             })
             
             DispatchQueue.main.async {
@@ -70,6 +77,29 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
+        //print("人数：\(roomsArray[indexPath.row].enterNum)")
+        cell.enterNum.text = String(roomsArray[indexPath.row].roomEnterNum)
+        
+        
+        let label1 = UILabel()
+        label1.backgroundColor = UIColor.blue
+        label1.textColor = UIColor.white
+        label1.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        label1.translatesAutoresizingMaskIntoConstraints = false
+        label1.layer.cornerRadius = 25
+        label1.clipsToBounds = true
+        label1.text = ""
+        
+        let label2 = UILabel()
+        label2.backgroundColor = UIColor.blue
+        label2.textColor = UIColor.white
+        label2.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        label2.layer.cornerRadius = 25
+        label2.clipsToBounds = true
+        
+        cell.stackView.addArrangedSubview(label1)
+        cell.stackView.addArrangedSubview(label2)
         
         return cell
     }
@@ -78,7 +108,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
             num = indexPath.row
-            print("部屋名:\(roomsArray[indexPath.row].roomName!)")
+            //print("部屋名:\(roomsArray[indexPath.row].roomName!)")
             performSegue(withIdentifier: "toAdd", sender: nil)
     }
     
@@ -90,6 +120,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             next.enterRoom = roomsArray[num].roomName
         }
     }
+    
+    func setupMethod(){}
+    @IBAction func myUnwindAction(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        if(unwindSegue.identifier=="toHome"){
+            
+            print("戻る\(back)")
+               }
+    }
+    
     
     //セルの消去
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
