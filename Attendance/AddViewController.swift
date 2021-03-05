@@ -35,17 +35,12 @@ class AddViewController: UIViewController {
         addTableView.delegate = self
         addTableView.dataSource = self
     
-        let enterName = Firestore.firestore().collection("users")
+        //let enterName = Firestore.firestore().collection("users")
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
         let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
         
         self.enterArray = [Rooms]()
         
-        let user = Auth.auth().currentUser
-        if let user = user {
-            let name = user.displayName
-            print("@@@ユーザー名：\(name)")
-        }
         //enterArrayに(部屋に入室しているユーザーの情報)を格納
         RoomData.getDocuments{ (snapshots, err) in
             if let err = err{
@@ -66,13 +61,10 @@ class AddViewController: UIViewController {
                 for data in self.enterArray{ //入室している部屋の中にユーザーがいるかどうか確認
                     if data.enterUser == uid{ //もし, ユーザーが入室していたら
                         self.enterButton.title = "退出" //退出ボタンを表示
-                        print("退出ユ:\(data.enterUser)")
-                        print("本人:\(uid)")
+                      
                         break
                     }
                     else{ //ユーザが退出していたら
-                        print("入室ユ:\(data.enterUser)")
-                        print("本人:\(uid)")
                         self.enterButton.title = "入室" //入室ボタンを表示
                         //break
                     }
@@ -101,7 +93,6 @@ class AddViewController: UIViewController {
             //もし, 部屋に誰もいなかったら
             if enterArray.isEmpty == true{
                 self.enterArray = [Rooms]()
-                //RoomData.document(uid).setData(["enterUserID": uid]){ err in
                 RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
                         print("Error writing document: \(err)")
@@ -132,7 +123,6 @@ class AddViewController: UIViewController {
                     break
                 }
                 else{ //部屋に本人のidがなかったらidを追加
-                    //self.enterArray = [Rooms]()
                     print("追加")
                     RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //Firestoreの部屋にユーザー本人を追加
                         if let err = err {
@@ -174,26 +164,14 @@ class AddViewController: UIViewController {
     
 }
 
+
 extension AddViewController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
         
         Firestore.firestore().collection("room").document(enterRoom).updateData(["roomEnterNum": String(enterArray.count)])
-      /*  self.enterNumArray = [Rooms]()
-        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
-            if let err = err{
-                return
-            }
-            snapshots?.documents.forEach({ (snapshot) in
-               // let dic = snapshot.data()
-                let room = Rooms(document: snapshot)
-                self.enterNumArray.append(room)
-                //print("add名前：\(room.roomName)")
-                print("add人数：\(room.roomEnterNum)")
-            })
-        }*/
+     
         return enterArray.count
     }
     
@@ -213,6 +191,9 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         cell.nameLabel.text = enterArray[indexPath.row].enterName
         cell.nameIconLabel.text = iconName //頭文字を表示
        
+        //頭文字をFireStoreに保存
+        Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
+        
         return cell
     }
     
@@ -227,12 +208,9 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
             if (segue.identifier=="toHome") {
                 let vcHome = segue.destination as! HomeViewController;
                 
-                iconArray = [Int]()
-                iconArray.append(enterArray.count)
-                vcHome.num = enterArray.count
-                
-               
-                
+                //iconArray = [Int]()
+                //iconArray.append(enterArray.count)
+                //vcHome.num = enterArray.count
                 vcHome.setupMethod();
             }
         }

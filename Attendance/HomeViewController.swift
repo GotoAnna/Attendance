@@ -12,14 +12,13 @@ class HomeViewController: UIViewController {
 
     private let cellid = "cellid"
     var roomsArray = [Rooms]()
-    
+    var iconArray = [Rooms]()
+   // var copyIconArray = [Rooms]()
     let createRoom = CreateRoomViewController()
     var roomname: String!
     var num: Int = 0
     var back: Int = 0
-    //var icon = [String]()
-    //var icon = AddViewController()
-    
+    var number: Int = 0
     @IBOutlet weak var homeTableView: UITableView!
     
     
@@ -27,9 +26,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         homeTableView.delegate = self
         homeTableView.dataSource = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,32 +42,27 @@ class HomeViewController: UIViewController {
                 print("失敗")
                 return
             }
-                snapshots?.documents.forEach({ (snapshot) in
+            snapshots?.documents.forEach({ (snapshot) in
                // let dic = snapshot.data()
                 let room = Rooms(document: snapshot)
                 self.roomsArray.append(room)
-                //print(room.roomName)
-                //print(room.roomNumber)
-                print("人数：\(room.roomEnterNum)")
+                //print("ICON:\(room.iconName)")
             })
-            
             DispatchQueue.main.async {
                 self.homeTableView.reloadData() //TableViewの更新
                 //print("配列：\(Attendance.Rooms.self)")
             }
         }
-        
     }
 }
 
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        //return createRoom.roomnameArray.count
+
         return roomsArray.count
     }
-    
     //セルに内容を表示
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -77,30 +71,85 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
-        //print("人数：\(roomsArray[indexPath.row].enterNum)")
-        cell.enterNum.text = String(roomsArray[indexPath.row].roomEnterNum)
+        cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
+        number = Int(roomsArray[indexPath.row].roomEnterNum)!
         
+        let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName)
+        iconArray = [Rooms]()
+        db.collection("enterUser").getDocuments{ (snapshots, err) in
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+                let room = Rooms(document: snapshot)
+                self.iconArray.append(room)
+                print("ICON:\(room.iconName)")
+            })
+        }
         
-        let label1 = UILabel()
-        label1.backgroundColor = UIColor.blue
-        label1.textColor = UIColor.white
-        label1.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        label1.translatesAutoresizingMaskIntoConstraints = false
-        label1.layer.cornerRadius = 25
-        label1.clipsToBounds = true
-        label1.text = ""
-        
-        let label2 = UILabel()
-        label2.backgroundColor = UIColor.blue
-        label2.textColor = UIColor.white
-        label2.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        label2.layer.cornerRadius = 25
-        label2.clipsToBounds = true
-        
-        cell.stackView.addArrangedSubview(label1)
-        cell.stackView.addArrangedSubview(label2)
-        
+        cell.icon1.isHidden = false
+        cell.icon2.isHidden = false
+        cell.icon3.isHidden = false
+        cell.icon4.isHidden = false
+        cell.icon5.isHidden = false
+        cell.icon6.isHidden = false
+        //print("アイコン：\(copyIconArray)")
+        if number == 0{
+            //cell.icon1.text = iconArray[0].iconName
+            //cell.icon2.text = iconArray[1].iconName
+            //cell.icon3.text = iconArray[2].iconName
+            //cell.icon4.text = iconArray[3].iconName
+            //cell.icon5.text = iconArray[4].iconName
+            //cell.icon6.text = iconArray[5].iconName
+            cell.icon1.isHidden = true
+            cell.icon2.isHidden = true
+            cell.icon3.isHidden = true
+            cell.icon4.isHidden = true
+            cell.icon5.isHidden = true
+            cell.icon6.isHidden = true
+        }
+        if number == 1{
+            //cell.icon1.text = iconArray[0].iconName
+            cell.icon2.isHidden = true
+            cell.icon3.isHidden = true
+            cell.icon4.isHidden = true
+            cell.icon5.isHidden = true
+            cell.icon6.isHidden = true
+        }
+        if number == 2{
+            //cell.icon1.text = iconArray[0].iconName
+            //cell.icon2.text = iconArray[1].iconName
+            cell.icon3.isHidden = true
+            cell.icon4.isHidden = true
+            cell.icon5.isHidden = true
+            cell.icon6.isHidden = true
+        }
+        if number == 3{
+            //cell.icon1.text = iconArray[0].iconName
+            //cell.icon2.text = iconArray[1].iconName
+            //cell.icon3.text = iconArray[2].iconName
+            cell.icon4.isHidden = true
+            cell.icon5.isHidden = true
+            cell.icon6.isHidden = true
+        }
+        if number == 4{
+            //cell.icon1.text = iconArray[0].iconName
+            //cell.icon2.text = iconArray[1].iconName
+            //cell.icon3.text = iconArray[2].iconName
+            //cell.icon4.text = iconArray[3].iconName
+            cell.icon5.isHidden = true
+            cell.icon6.isHidden = true
+        }
+        if number == 5{
+            //cell.icon1.text = iconArray[0].iconName
+            //cell.icon2.text = iconArray[1].iconName
+            //cell.icon3.text = iconArray[2].iconName
+            //cell.icon4.text = iconArray[3].iconName
+            //cell.icon5.text = iconArray[4].iconName
+            cell.icon6.isHidden = true
+        }
+      
         return cell
     }
     
@@ -108,7 +157,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
             num = indexPath.row
-            //print("部屋名:\(roomsArray[indexPath.row].roomName!)")
             performSegue(withIdentifier: "toAdd", sender: nil)
     }
     
@@ -122,10 +170,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func setupMethod(){}
-    @IBAction func myUnwindAction(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+    @IBAction func myUnwindAction(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController)
+    {
         if(unwindSegue.identifier=="toHome"){
             
-            print("戻る\(back)")
                }
     }
     
@@ -146,9 +194,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                 roomsArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-             
+            }
     }
-        
-}
- 
 }
