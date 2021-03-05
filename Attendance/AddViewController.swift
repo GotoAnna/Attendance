@@ -71,7 +71,6 @@ class AddViewController: UIViewController {
                     //print("配列:\(self.enterArray)")
                 }
             }
-           
         }
     }
     
@@ -82,12 +81,17 @@ class AddViewController: UIViewController {
     
     
     @IBAction func onClickEnterButton() {
-        
+        var iconName: String!
         let user = Auth.auth().currentUser
         if let user = user {//もし, ユーザー本人だったらFireStoreの部屋にユーザーを追加
             
             let uid = user.uid //ユーザーのID
             let userName = user.displayName
+            for num in userName! {
+                //print("数字:\(num)")
+                iconName = String(num) //ユーザ名の頭文字を代入
+                break
+            }
             //print("ユーザー名：\(userName)")
             let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
             //もし, 部屋に誰もいなかったら
@@ -103,11 +107,12 @@ class AddViewController: UIViewController {
                         self.EnterArray()
                     }
                 }
+                Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
             }
             
             //部屋に入室しているユーザーの中に本人がいるかどうか確認
             for data in enterArray{ //enterArray(部屋に入室しているユーザー)
-                print("配列：\(enterArray)")
+                //print("配列：\(enterArray)")
                 if data.enterUser == uid{ //部屋に本人のidがあったら消去
                     print("消去")
                     RoomData.document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
@@ -120,6 +125,8 @@ class AddViewController: UIViewController {
                             self.EnterArray()
                         }
                     }
+                    //print("数字:\(iconName)")
+                    Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
                     break
                 }
                 else{ //部屋に本人のidがなかったらidを追加
@@ -134,6 +141,7 @@ class AddViewController: UIViewController {
                             self.EnterArray()
                         }
                     }
+                    Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                     //break
                 }
             }//for文終わり
@@ -183,7 +191,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
       
         icon = enterArray[indexPath.row].enterName //ユーザー名
         for num in icon {
-            print(num)
+            //print(num)
             iconName = String(num) //ユーザ名の頭文字を代入
             break
         }
@@ -193,6 +201,8 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
        
         //頭文字をFireStoreに保存
         Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
+        
+       // Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
         
         return cell
     }

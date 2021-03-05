@@ -433,57 +433,57 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAQ-eN-IbT">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="48"/>
-                                                                    <color key="backgroundColor" red="0.35596363739999998" green="0.44047551489999998" blue="0.97758577810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="3zT-In-a1Z"/>
                                                                         <constraint firstAttribute="height" constant="50" id="MzM-Zb-xmt"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bs4-Ap-TE9">
                                                                     <rect key="frame" x="60" y="0.0" width="50" height="48"/>
-                                                                    <color key="backgroundColor" red="0.35596363739999998" green="0.44047551489999998" blue="0.97758577810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="RjD-Rf-azf"/>
                                                                         <constraint firstAttribute="width" constant="50" id="dRD-dQ-kuC"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9P-Yn-M3X">
                                                                     <rect key="frame" x="120" y="0.0" width="50" height="48"/>
-                                                                    <color key="backgroundColor" red="0.35596363739999998" green="0.44047551489999998" blue="0.97758577810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="HvV-Ka-R0Q"/>
                                                                         <constraint firstAttribute="height" constant="50" id="jpk-r7-MR3"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="go3-lJ-y8r">
                                                                     <rect key="frame" x="180" y="0.0" width="50" height="48"/>
-                                                                    <color key="backgroundColor" red="0.35596363739999998" green="0.44047551489999998" blue="0.97758577810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="gFK-lt-E7Y"/>
                                                                         <constraint firstAttribute="width" constant="50" id="twa-cj-G0r"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFU-AB-UeN">
                                                                     <rect key="frame" x="240" y="0.0" width="50" height="48"/>
-                                                                    <color key="backgroundColor" red="0.35596363739999998" green="0.44047551489999998" blue="0.97758577810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="Ldb-vx-a0G"/>
                                                                         <constraint firstAttribute="width" constant="50" id="gvy-dF-5qJ"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                    <nil key="textColor"/>
+                                                                    <color key="textColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -495,7 +495,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.62681211272166182" green="0.73403931042566006" blue="0.96620899438858032" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" red="0.47268015149999998" green="0.87329488990000004" blue="0.92158120870000004" alpha="0.72931338028169013" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstItem="TYn-RH-HO8" firstAttribute="top" secondItem="NQz-Xh-3AO" secondAttribute="top" constant="70" id="4zN-JC-kfe"/>
                                                         <constraint firstAttribute="trailing" secondItem="eVV-P0-G1a" secondAttribute="trailing" constant="6" id="RZk-bD-K09"/>
@@ -567,12 +567,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giS-zC-aTv">
+                                <rect key="frame" x="334" y="772" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.34586507080000001" green="0.41987141970000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="hKB-ud-swq"/>
+                                    <constraint firstAttribute="height" constant="60" id="v0Z-Ik-SIs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOx-GU-9wE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="UOx-GU-9wE" firstAttribute="bottom" secondItem="giS-zC-aTv" secondAttribute="bottom" constant="30" id="5mQ-xD-8Mg"/>
                             <constraint firstItem="akN-CQ-Dy4" firstAttribute="top" secondItem="UOx-GU-9wE" secondAttribute="top" id="Eh7-Dh-brO"/>
-                            <constraint firstItem="UOx-GU-9wE" firstAttribute="bottom" secondItem="akN-CQ-Dy4" secondAttribute="bottom" id="Fu6-IY-es2"/>
+                            <constraint firstItem="UOx-GU-9wE" firstAttribute="trailing" secondItem="giS-zC-aTv" secondAttribute="trailing" constant="20" id="cxH-4g-ylg"/>
+                            <constraint firstItem="UOx-GU-9wE" firstAttribute="bottom" secondItem="akN-CQ-Dy4" secondAttribute="bottom" id="gic-j4-wZS"/>
                             <constraint firstItem="UOx-GU-9wE" firstAttribute="trailing" secondItem="akN-CQ-Dy4" secondAttribute="trailing" id="s4k-yC-mAo"/>
                             <constraint firstItem="akN-CQ-Dy4" firstAttribute="leading" secondItem="UOx-GU-9wE" secondAttribute="leading" id="tIu-Pr-OMz"/>
                         </constraints>

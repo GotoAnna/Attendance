@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
                // let dic = snapshot.data()
                 let room = Rooms(document: snapshot)
                 self.roomsArray.append(room)
-                //print("ICON:\(room.iconName)")
+                print("ICON:\(room.iconNameArray)")
             })
             DispatchQueue.main.async {
                 self.homeTableView.reloadData() //TableViewの更新
@@ -76,7 +76,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         
         let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName) //部屋名
         iconArray = [Rooms]()
-        db.collection("enterUser").getDocuments{ (snapshots, err) in //ForeStoreから名前の頭文字を取得
+        db.collection("enterUser").getDocuments{ (snapshots, err) in //FireStoreから名前の頭文字を取得
             if let err = err{
                 print("失敗")
                 return
@@ -96,12 +96,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.icon6.isHidden = false
        
         if number == 0{
-            //cell.icon1.text = iconArray[0].iconName
-            //cell.icon2.text = iconArray[1].iconName
-            //cell.icon3.text = iconArray[2].iconName
-            //cell.icon4.text = iconArray[3].iconName
-            //cell.icon5.text = iconArray[4].iconName
-            //cell.icon6.text = iconArray[5].iconName
             cell.icon1.isHidden = true
             cell.icon2.isHidden = true
             cell.icon3.isHidden = true
@@ -110,7 +104,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.icon6.isHidden = true
         }
         if number == 1{
-            //cell.icon1.text = iconArray[0].iconName
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
             cell.icon2.isHidden = true
             cell.icon3.isHidden = true
             cell.icon4.isHidden = true
@@ -118,35 +112,43 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.icon6.isHidden = true
         }
         if number == 2{
-            //cell.icon1.text = iconArray[0].iconName
-            //cell.icon2.text = iconArray[1].iconName
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
             cell.icon3.isHidden = true
             cell.icon4.isHidden = true
             cell.icon5.isHidden = true
             cell.icon6.isHidden = true
         }
         if number == 3{
-            //cell.icon1.text = iconArray[0].iconName
-            //cell.icon2.text = iconArray[1].iconName
-            //cell.icon3.text = iconArray[2].iconName
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
+            cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
             cell.icon4.isHidden = true
             cell.icon5.isHidden = true
             cell.icon6.isHidden = true
         }
         if number == 4{
-            //cell.icon1.text = iconArray[0].iconName
-            //cell.icon2.text = iconArray[1].iconName
-            //cell.icon3.text = iconArray[2].iconName
-            //cell.icon4.text = iconArray[3].iconName
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
+            cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
+            cell.icon4.text = roomsArray[indexPath.row].iconNameArray[3]
             cell.icon5.isHidden = true
             cell.icon6.isHidden = true
         }
         if number == 5{
-            //cell.icon1.text = iconArray[0].iconName
-            //cell.icon2.text = iconArray[1].iconName
-            //cell.icon3.text = iconArray[2].iconName
-            //cell.icon4.text = iconArray[3].iconName
-            //cell.icon5.text = iconArray[4].iconName
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
+            cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
+            cell.icon4.text = roomsArray[indexPath.row].iconNameArray[3]
+            cell.icon5.text = roomsArray[indexPath.row].iconNameArray[4]
+            cell.icon6.isHidden = true
+        }
+        if number == 6{
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
+            cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
+            cell.icon4.text = roomsArray[indexPath.row].iconNameArray[3]
+            cell.icon5.text = roomsArray[indexPath.row].iconNameArray[4]
             cell.icon6.isHidden = true
         }
       
