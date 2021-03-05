@@ -74,9 +74,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
         number = Int(roomsArray[indexPath.row].roomEnterNum)!
         
-        let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName)
+        let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName) //部屋名
         iconArray = [Rooms]()
-        db.collection("enterUser").getDocuments{ (snapshots, err) in
+        db.collection("enterUser").getDocuments{ (snapshots, err) in //ForeStoreから名前の頭文字を取得
             if let err = err{
                 print("失敗")
                 return
@@ -94,7 +94,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.icon4.isHidden = false
         cell.icon5.isHidden = false
         cell.icon6.isHidden = false
-        //print("アイコン：\(copyIconArray)")
+       
         if number == 0{
             //cell.icon1.text = iconArray[0].iconName
             //cell.icon2.text = iconArray[1].iconName
