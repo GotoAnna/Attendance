@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //もし一度ログインしたユーザーだったら, skipLogin()を呼ぶ
         if Auth.auth().currentUser != nil{
-           // skipLogin()
+            skipLogin()
         }
     }
 
@@ -60,8 +60,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let HomeViewController = storyboard.instantiateViewController(identifier: "HomeVC")
         
         //rootViewController(初期画面)をHomeViewControllerにする
-        window?.rootViewController = HomeViewController
-        
+       // window?.rootViewController = HomeViewController
+        window?.rootViewController = UINavigationController(rootViewController: HomeViewController)
+       
         //画面を表示
         window?.makeKeyAndVisible()
         

@@ -135,11 +135,12 @@ class SignUpUserViewController: UIViewController {
     
     func transitionToHome()
     {
-        /*let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
+        //let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
         
-        view.window?.rootViewController = homeViewController
-        view.window?.makeKeyAndVisible()*/
+        //view.window?.rootViewController = homeViewController
+        view.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "topNavigationController")
+        view.window?.makeKeyAndVisible()
         
-        self.performSegue(withIdentifier: "toHome", sender: self)
+        //self.performSegue(withIdentifier: "toHome", sender: self)
     }
 }

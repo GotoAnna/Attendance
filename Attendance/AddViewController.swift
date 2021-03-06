@@ -35,6 +35,15 @@ class AddViewController: UIViewController {
         addTableView.delegate = self
         addTableView.dataSource = self
     
+        
+        //navigationItem.rightBarButtonItem?.setBackgroundImage(UIImage.maskCorner(), for: .normal, barMetrics: .default)
+        /*let imageButtonItem = UIBarButtonItem(
+            image: UIImage(named: "enter.png")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
+            style: UIBarButtonItem.Style.plain, target:self, action: "onClickNavBarImageButton")*/
+        //self.navigationItem.rightBarButtonItems = [imageButtonItem]
+        //self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)
+        
+        
         //let enterName = Firestore.firestore().collection("users")
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
         let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
@@ -225,3 +234,5 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
 }
+
+

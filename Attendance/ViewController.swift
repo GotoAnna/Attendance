@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setUpElements()
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
     }
     
     func setUpElements(){

@@ -15,6 +15,8 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var frameView: UIView!
     
+    @IBOutlet weak var frameShadowView: UIView!
+    
     @IBOutlet weak var enterNum: UILabel!
     
     @IBOutlet weak var stackView: UIStackView!
@@ -42,10 +44,12 @@ class CustomTableViewCell: UITableViewCell {
         // Initialization code
         
         frameView.layer.cornerRadius = 10
-        frameView.layer.shadowOpacity = 0.4
-        frameView.layer.shadowRadius = 5
-        frameView.layer.shadowColor = UIColor.black.cgColor
-        frameView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        
+        frameShadowView.layer.cornerRadius = 10
+        frameShadowView.layer.shadowOpacity = 0.4
+        frameShadowView.layer.shadowRadius = 5
+        frameShadowView.layer.shadowColor = UIColor.black.cgColor
+        frameShadowView.layer.shadowOffset = CGSize(width: 5, height: 5)
         stackView.spacing = 10
         
         icon1.layer.cornerRadius = 25

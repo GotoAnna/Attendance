@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
     func setUpElements(){
         
         errorLabel.alpha = 0
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         //スタイル
         Utilities.styleTextField(userNameTextField)
         Utilities.styleTextField(emailTextField)
@@ -65,12 +65,13 @@ class LoginViewController: UIViewController {
                                print("成功:\(changeRequest?.displayName)")
                              }
                  }
-               /* let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
+               // let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
                 
-                self.view.window?.rootViewController = homeViewController
-                self.view.window?.makeKeyAndVisible()*/
+                //self.view.window?.rootViewController = homeViewController
+                self.view.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "topNavigationController")
+                self.view.window?.makeKeyAndVisible()
                 
-                self.performSegue(withIdentifier: "toHome", sender: self)
+                //self.performSegue(withIdentifier: "toHome", sender: self)
             }
         }
     }

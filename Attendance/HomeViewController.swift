@@ -21,14 +21,35 @@ class HomeViewController: UIViewController {
     var number: Int = 0
     @IBOutlet weak var homeTableView: UITableView!
     
+    @IBOutlet weak var createButton: UIButton!
     
+    var trashButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         homeTableView.delegate = self
         homeTableView.dataSource = self
+        createButton.layer.cornerRadius = 30
         
+        self.navigationItem.title = "Title"
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+      
+        navigationItem.rightBarButtonItem = editButtonItem
+        //let rightTrashBarButtonItem: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: "trashButtonTapped")
+          // add the button to navigationBar
+          //self.navigationItem.setRightBarButtonItems([rightTrashBarButtonItem], animated: true)
+        
+        //ゴミ箱ボタン
+       /* trashButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trashButtonTapped(_:)))
+        
+        self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)*/
+        
+        //navigationItem.rightBarButtonItem = editButtonItem
+        //let rightButton = UIBarButtonItem(title: "Edit", style: UIBarButtonItem.Style.plain, target: self, action: Selector("showEditing:"))
+        //self.navigationItem.rightBarButtonItem = rightButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,9 +92,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
-        cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
-        number = Int(roomsArray[indexPath.row].roomEnterNum)!
+        //cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
         
+        if roomsArray[indexPath.row].roomEnterNum == ""{
+            number = 0
+            cell.enterNum.text = "0"
+        }
+        else{
+            cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
+            number = Int(roomsArray[indexPath.row].roomEnterNum)!
+        }
+      
         let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName) //部屋名
         iconArray = [Rooms]()
         db.collection("enterUser").getDocuments{ (snapshots, err) in //FireStoreから名前の頭文字を取得
@@ -149,7 +178,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
             cell.icon4.text = roomsArray[indexPath.row].iconNameArray[3]
             cell.icon5.text = roomsArray[indexPath.row].iconNameArray[4]
-            cell.icon6.isHidden = true
+            cell.icon6.isHidden = false
         }
       
         return cell
@@ -178,7 +207,36 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
                }
     }
-    
+
+    /*func trashButtonTapped(){
+        print("trash")
+        //super.setEditing(editing, animated: animated)
+        /*if(tableView.isEditing == true)
+        {
+            tableView.isEditing = false //編集不可
+        }
+        else{
+            tableView.isEditing = true //編集可
+        }*/
+    }*/
+   /* override func setEditing(_ editing: Bool, animated: Bool) {
+            //override前の処理を継続してさせる
+            super.setEditing(editing, animated: animated)
+            //tableViewの編集モードを切り替える
+            tableView.isEditing = editing //editingはBool型でeditButtonに依存する変数
+        }*/
+   
+   /* @objc func trashButtonTapped(_ sender: UIBarButtonItem) {
+           print("【+】ボタンが押された!")
+       */
+   
+    //編集モードの時のみ消去できるようにする
+  /*  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing {
+            return .delete
+        }
+        return .none
+    }*/
     
     //セルの消去
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
