@@ -586,14 +586,14 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giS-zC-aTv">
                                 <rect key="frame" x="334" y="772" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.56611984969999996" green="0.603742063" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.55038607120000005" green="0.98429316280000001" blue="0.97647684810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="hKB-ud-swq"/>
                                     <constraint firstAttribute="height" constant="60" id="v0Z-Ik-SIs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <state key="normal" title="＋">
-                                    <color key="titleColor" red="1" green="0.99997597930000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="JzY-GB-1Yi" kind="show" id="UbH-ri-mvD"/>
@@ -630,7 +630,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-Ns-b8g">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-Ns-b8g">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -690,7 +690,7 @@
                                 <segue destination="AxB-Jj-TCH" kind="unwind" identifier="toHome" unwindAction="myUnwindActionFor:towardsViewController:" id="KmJ-ig-J4D"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="入室" id="cHe-i0-yJ2">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.fill.checkmark" catalog="system" id="cHe-i0-yJ2">
                             <connections>
                                 <action selector="onClickEnterButton" destination="t8G-t5-NUF" id="IuS-Cv-L2v"/>
                             </connections>
@@ -751,12 +751,13 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z6N-AR-KZ6">
                                         <rect key="frame" x="0.0" y="169" width="314" height="50"/>
-                                        <color key="backgroundColor" red="0.36604583260000001" green="0.45015090699999999" blue="0.91769254209999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.54654359819999998" green="0.98429220910000004" blue="0.97647684810000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Uem-xE-ObH"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="作成">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="createRoom:" destination="JzY-GB-1Yi" eventType="touchUpInside" id="igz-1j-krL"/>
@@ -776,6 +777,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="追加" id="vUZ-0r-Cjl"/>
                     <connections>
+                        <outlet property="createButton" destination="Z6N-AR-KZ6" id="fe1-qj-Jr1"/>
                         <outlet property="roomnameTextField" destination="pSK-XG-EZF" id="VOF-kg-yZy"/>
                         <outlet property="roomnumberTextField" destination="79Y-Ei-TA4" id="XeZ-1Y-Bh6"/>
                     </connections>
@@ -828,6 +830,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

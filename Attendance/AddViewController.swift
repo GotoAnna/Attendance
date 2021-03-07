@@ -35,16 +35,12 @@ class AddViewController: UIViewController {
         addTableView.delegate = self
         addTableView.dataSource = self
     
-        
-        //navigationItem.rightBarButtonItem?.setBackgroundImage(UIImage.maskCorner(), for: .normal, barMetrics: .default)
-        /*let imageButtonItem = UIBarButtonItem(
-            image: UIImage(named: "enter.png")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal),
-            style: UIBarButtonItem.Style.plain, target:self, action: "onClickNavBarImageButton")*/
-        //self.navigationItem.rightBarButtonItems = [imageButtonItem]
-        //self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)
-        
+        //let paperPlane = UIImage(systemName: "paperplane.fill")
         
         //let enterName = Firestore.firestore().collection("users")
+        
+        self.navigationItem.title = enterRoom
+        
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
         let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
         
@@ -69,12 +65,14 @@ class AddViewController: UIViewController {
                 let uid = user.uid
                 for data in self.enterArray{ //入室している部屋の中にユーザーがいるかどうか確認
                     if data.enterUser == uid{ //もし, ユーザーが入室していたら
-                        self.enterButton.title = "退出" //退出ボタンを表示
-                      
+                        //self.enterButton.title = "退出" //退出ボタンを表示
+                        //self.enterButton.barButtonSystemItem =
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
                         break
                     }
                     else{ //ユーザが退出していたら
-                        self.enterButton.title = "入室" //入室ボタンを表示
+                        //self.enterButton.title = "入室" //入室ボタンを表示
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.checkmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
                         //break
                     }
                     //print("配列:\(self.enterArray)")
@@ -83,13 +81,18 @@ class AddViewController: UIViewController {
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
 
     }
     
+    @objc func enterAction() {
+           print("Push searchButton")
+       }
     
     @IBAction func onClickEnterButton() {
+        print("押された！")
         var iconName: String!
         let user = Auth.auth().currentUser
         if let user = user {//もし, ユーザー本人だったらFireStoreの部屋にユーザーを追加
@@ -110,8 +113,9 @@ class AddViewController: UIViewController {
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
-                        print("Document successfully written!")
-                        self.enterButton.title = "退出"
+                        print("入室")
+                        //self.enterButton.title = "退出"
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
                         //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                         self.EnterArray()
                     }
@@ -128,8 +132,9 @@ class AddViewController: UIViewController {
                         if let err = err {
                             print("Error removing document: \(err)")
                         } else { //消去に成功
-                            print("Document successfully removed!")
-                            self.enterButton.title = "入室"
+                            print("FireStore消去")
+                            //self.enterButton.title = "入室"
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.checkmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
                             //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                             self.EnterArray()
                         }
@@ -144,8 +149,9 @@ class AddViewController: UIViewController {
                         if let err = err {
                             print("Error writing document: \(err)")
                         } else {
-                            print("Document successfully written!")
-                            self.enterButton.title = "退出"
+                            print("FireStore追加")
+                            //self.enterButton.title = "退出"
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
                             //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
                             self.EnterArray()
                         }

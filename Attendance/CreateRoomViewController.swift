@@ -17,13 +17,15 @@ class CreateRoomViewController: UIViewController {
     
     @IBOutlet weak var roomnumberTextField: UITextField!
     
+    @IBOutlet weak var createButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         // Do any additional setup after loading the view.
         fetchUserInfoFromFirestore()
-        
+        Utilities.styleTextField(roomnameTextField)
+        Utilities.styleTextField(roomnumberTextField)
+        Utilities.styleFilledButton(createButton)
     }
     
     private func fetchUserInfoFromFirestore(){

@@ -13,7 +13,6 @@ class HomeViewController: UIViewController {
     private let cellid = "cellid"
     var roomsArray = [Rooms]()
     var iconArray = [Rooms]()
-   // var copyIconArray = [Rooms]()
     let createRoom = CreateRoomViewController()
     var roomname: String!
     var num: Int = 0
@@ -37,19 +36,15 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.black
       
-        navigationItem.rightBarButtonItem = editButtonItem
-        //let rightTrashBarButtonItem: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: "trashButtonTapped")
-          // add the button to navigationBar
-          //self.navigationItem.setRightBarButtonItems([rightTrashBarButtonItem], animated: true)
-        
-        //ゴミ箱ボタン
-       /* trashButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trashButtonTapped(_:)))
-        
-        self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)*/
-        
         //navigationItem.rightBarButtonItem = editButtonItem
         //let rightButton = UIBarButtonItem(title: "Edit", style: UIBarButtonItem.Style.plain, target: self, action: Selector("showEditing:"))
         //self.navigationItem.rightBarButtonItem = rightButton
+        
+        //ゴミ箱ボタン
+       /*trashButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trashButtonTapped(_:)))
+        
+        self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)*/
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,27 +203,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                }
     }
 
-    /*func trashButtonTapped(){
-        print("trash")
-        //super.setEditing(editing, animated: animated)
-        /*if(tableView.isEditing == true)
+    //編集モード
+    func trashButtonTapped(){
+        if(tableView.isEditing == true)
         {
             tableView.isEditing = false //編集不可
+            //EditButton.title = "Edit"
         }
         else{
             tableView.isEditing = true //編集可
-        }*/
-    }*/
+            //EditButton.title = "Done"
+        }
+    }
    /* override func setEditing(_ editing: Bool, animated: Bool) {
             //override前の処理を継続してさせる
             super.setEditing(editing, animated: animated)
             //tableViewの編集モードを切り替える
             tableView.isEditing = editing //editingはBool型でeditButtonに依存する変数
         }*/
-   
-   /* @objc func trashButtonTapped(_ sender: UIBarButtonItem) {
-           print("【+】ボタンが押された!")
-       */
    
     //編集モードの時のみ消去できるようにする
   /*  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
