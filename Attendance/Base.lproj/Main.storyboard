@@ -593,7 +593,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <state key="normal" title="＋">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="JzY-GB-1Yi" kind="show" id="UbH-ri-mvD"/>
@@ -611,9 +611,16 @@
                             <constraint firstItem="akN-CQ-Dy4" firstAttribute="leading" secondItem="UOx-GU-9wE" secondAttribute="leading" id="tIu-Pr-OMz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="アカウント名" id="OQu-kA-e7U"/>
+                    <navigationItem key="navigationItem" title="アカウント名" id="OQu-kA-e7U">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash" catalog="system" id="Nhw-ky-ys0">
+                            <connections>
+                                <action selector="trashButton:" destination="eCr-qG-zgK" id="gPy-8M-dz7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="createButton" destination="giS-zC-aTv" id="axw-Yz-rMx"/>
+                        <outlet property="createLabel" destination="giS-zC-aTv" id="5nW-Vq-rtv"/>
                         <outlet property="homeTableView" destination="akN-CQ-Dy4" id="jb6-pk-gwv"/>
                         <segue destination="t8G-t5-NUF" kind="show" identifier="toAdd" id="dzg-8l-WY7"/>
                     </connections>
@@ -706,7 +713,7 @@
             </objects>
             <point key="canvasLocation" x="4617" y="1576"/>
         </scene>
-        <!--追加-->
+        <!--作成-->
         <scene sceneID="UbL-me-2x2">
             <objects>
                 <viewController id="JzY-GB-1Yi" customClass="CreateRoomViewController" customModule="Attendance" customModuleProvider="target" sceneMemberID="viewController">
@@ -775,7 +782,7 @@
                             <constraint firstItem="Qch-ty-e9O" firstAttribute="leading" secondItem="jFQ-3m-mPu" secondAttribute="leading" constant="50" id="s1D-sQ-Mvr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="追加" id="vUZ-0r-Cjl"/>
+                    <navigationItem key="navigationItem" title="作成" id="vUZ-0r-Cjl"/>
                     <connections>
                         <outlet property="createButton" destination="Z6N-AR-KZ6" id="fe1-qj-Jr1"/>
                         <outlet property="roomnameTextField" destination="pSK-XG-EZF" id="VOF-kg-yZy"/>
@@ -831,6 +838,7 @@
     </scenes>
     <resources>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

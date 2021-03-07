@@ -7,12 +7,16 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
     private let cellid = "cellid"
     var roomsArray = [Rooms]()
+    var array = [Rooms]()
+    var enterArray = [Rooms]()
     var iconArray = [Rooms]()
+    var nameArray = [String]()
     let createRoom = CreateRoomViewController()
     var roomname: String!
     var num: Int = 0
@@ -21,6 +25,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeTableView: UITableView!
     
     @IBOutlet weak var createButton: UIButton!
+    
+    @IBOutlet weak var createLabel: UIButton!
     
     var trashButtonItem: UIBarButtonItem!
     
@@ -36,15 +42,50 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.black
       
-        //navigationItem.rightBarButtonItem = editButtonItem
-        //let rightButton = UIBarButtonItem(title: "Edit", style: UIBarButtonItem.Style.plain, target: self, action: Selector("showEditing:"))
-        //self.navigationItem.rightBarButtonItem = rightButton
-        
-        //ゴミ箱ボタン
-       /*trashButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trashButtonTapped(_:)))
-        
-        self.navigationItem.setRightBarButtonItems([trashButtonItem], animated: true)*/
-        
+        createLabel.layer.borderWidth = 3.0    // 枠線の幅
+        createLabel.layer.borderColor = UIColor.init(red: 0.474, green: 0.835, blue: 0.870, alpha: 1).cgColor
+    
+        createButton.layer.shadowOpacity = 0.5
+        createButton.layer.shadowRadius = 5
+        createButton.layer.shadowColor = UIColor.black.cgColor
+        createButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+     /*   array = [Rooms]()
+        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+               // let dic = snapshot.data()
+                let room = Rooms(document: snapshot)
+                self.array.append(room)
+                print("ICON:\(room.iconNameArray)")
+            })
+            DispatchQueue.main.async {
+                self.homeTableView.reloadData() //TableViewの更新
+                //print("配列：\(Attendance.Rooms.self)")
+            }
+            print("部屋配列：\(self.array)")
+            for data in self.array{
+                self.enterArray = [String]()
+                let RoomData = Firestore.firestore().collection("room").document(data.roomName).collection("enterUser")
+                RoomData.getDocuments{ (snapshots, err) in
+                    //self.enterArray = [String]()
+                    print("DID")
+                    if let err = err{
+                        print("失敗")
+                        return
+                    }
+                    snapshots?.documents.forEach({ (snapshot) in
+                        let room = Rooms(document: snapshot)
+                        self.enterArray.append(room.iconName)
+                        print("名前:\(room.iconName)")
+                        //print("名前：\(room.enterName)")
+                    })
+                }
+                //Firestore.firestore().collection("room").document(data.roomName).updateData(["iconNameArray": FieldValue.arrayUnion(["iconName"])])
+            }
+        }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +111,11 @@ class HomeViewController: UIViewController {
             }
         }
     }
+
+    @IBAction func trashButton(_ sender: Any) {
+        trashButtonTapped(homeTableView)
+    }
+    
 }
 
 
@@ -204,31 +250,35 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
 
     //編集モード
-    func trashButtonTapped(){
+    
+    @objc func trashButtonTapped(_ tableView: UITableView){
         if(tableView.isEditing == true)
         {
             tableView.isEditing = false //編集不可
+            print("編集可能")
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:  .trash, target: self, action: #selector(self.trashButton))
             //EditButton.title = "Edit"
         }
         else{
             tableView.isEditing = true //編集可
             //EditButton.title = "Done"
+            print("編集不可")
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:  .done, target: self, action: #selector(self.trashButton))
         }
     }
-   /* override func setEditing(_ editing: Bool, animated: Bool) {
-            //override前の処理を継続してさせる
-            super.setEditing(editing, animated: animated)
-            //tableViewの編集モードを切り替える
-            tableView.isEditing = editing //editingはBool型でeditButtonに依存する変数
-        }*/
-   
+    
+    @objc func edit() {
+           print("Push searchButton")
+       }
+
     //編集モードの時のみ消去できるようにする
-  /*  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if tableView.isEditing {
             return .delete
         }
+    
         return .none
-    }*/
+    }
     
     //セルの消去
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -236,11 +286,57 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                
                 print("消去部屋名:\(roomsArray[indexPath.row].roomName!)")
                 
-                Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).delete() { err in
+        
+                    //self.enterArray = [Rooms]()
+         /*       let RoomData = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).collection("enterUser")
+                RoomData.getDocuments{ (snapshots, err) in
+                //self.enterArray = [String]()
+                    print("DID")
+                    if let err = err{
+                        print("失敗")
+                        return
+                    }
+                    snapshots?.documents.forEach({ (snapshot) in
+                            let room = Rooms(document: snapshot)
+                            //self.enterArray.append(room)
+                            //print("名前:\(room.enterUser)")
+                            Firestore.firestore().collection("room").document(self.roomsArray[indexPath.row].roomName).collection("enterUser").document(room.enterUser).delete() { err in
+                                print("ユーザー")
+                                if let err = err {
+                                    print("Error removing document: \(err)")
+                                } else {
+                                    print("ユーザーを消去")
+                                    print("名前:\(room.enterUser)")
+                                }
+                            }
+                        })
+                    }*/
+                
+               /* Firestore.firestore().collection("room").document(self.roomsArray[indexPath.row].roomName).collection("enterUser").document(roomsArray[indexPath.row].enterUser).delete() { err in
+                    print("ユーザー")
                     if let err = err {
                         print("Error removing document: \(err)")
                     } else {
-                        print("Document successfully removed!")
+                        print("ユーザーを消去")
+                    }
+                }*/
+                
+            /*    for data in enterArray{
+                    Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).collection("enterUser").document(data.enterUser).delete() { err in
+                        print("ユーザー")
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("ユーザーを消去")
+                        }
+                    }
+                }*/
+                
+               Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                    } else {
+                        print("部屋名を消去")
                     }
                 }
                     
