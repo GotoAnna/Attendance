@@ -56,7 +56,17 @@ class AddViewController: UIViewController {
             }
             snapshots?.documents.forEach({ (snapshot) in
                 let room = Rooms(document: snapshot)
-                self.enterArray.append(room) //ユーザを追加
+                let user = Auth.auth().currentUser
+                if let user = user {
+                    let uid = user.uid
+                    if uid == room.enterUser{
+                        self.enterArray.insert(room, at: 0)
+                    }
+                    else{
+                        self.enterArray.append(room) //ユーザを追加
+                    }
+                }
+                //self.enterArray.append(room) //ユーザを追加
             })
             DispatchQueue.main.async {
                 self.addTableView.reloadData() //TableViewの更新
