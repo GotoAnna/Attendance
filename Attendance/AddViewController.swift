@@ -42,7 +42,7 @@ class AddViewController: UIViewController {
         //let enterName = Firestore.firestore().collection("users")
         
         self.navigationItem.title = enterRoom
-        
+      
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
         let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
         
@@ -97,6 +97,7 @@ class AddViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
 
+        
     }
     
     @objc func enterAction() {
@@ -203,6 +204,7 @@ class AddViewController: UIViewController {
     
     //enterArrayに(部屋に入室しているユーザー)を格納、TableViewの更新
     func EnterArray(){
+        
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
         RoomData.getDocuments{ (snapshots, err) in
             self.enterArray = [Rooms]()
@@ -212,7 +214,17 @@ class AddViewController: UIViewController {
             }
             snapshots?.documents.forEach({ (snapshot) in
                 let room = Rooms(document: snapshot)
-                self.enterArray.append(room)
+                let user = Auth.auth().currentUser
+                if let user = user {
+                    let uid = user.uid
+                    if uid == room.enterUser{
+                        self.enterArray.insert(room, at: 0)
+                    }
+                    else{
+                        self.enterArray.append(room) //ユーザを追加
+                    }
+                }
+                //self.enterArray.append(room)
                 //print("名前：\(room.enterName)")
             })
             DispatchQueue.main.async {

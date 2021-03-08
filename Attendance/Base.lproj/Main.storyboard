@@ -97,7 +97,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザ名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VCc-RR-eQv">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名(フルネーム)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VCc-RR-eQv">
                                                 <rect key="frame" x="0.0" y="12" width="334" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="bpQ-fO-RyD"/>
@@ -116,7 +116,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y4o-Nd-4u5">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="@example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y4o-Nd-4u5">
                                                 <rect key="frame" x="0.0" y="13.5" width="334" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="caA-gG-P8R"/>
@@ -135,7 +135,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S94-SX-XAK">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="例) tester1234@" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S94-SX-XAK">
                                                 <rect key="frame" x="0.0" y="12" width="334" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="2a0-uT-Izj"/>
@@ -201,7 +201,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SeK-OC-EBW">
                                 <rect key="frame" x="40" y="302" width="334" height="292.5"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザー名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bfC-pS-h6T">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="姓名(フルネーム)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bfC-pS-h6T">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -590,11 +590,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="アカウント名" id="OQu-kA-e7U">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash" catalog="system" id="Nhw-ky-ys0">
-                            <connections>
-                                <action selector="trashButton:" destination="eCr-qG-zgK" id="gPy-8M-dz7"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="fhb-VO-jzi"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash.fill" catalog="system" id="Nhw-ky-ys0"/>
                     </navigationItem>
                     <connections>
                         <outlet property="createButton" destination="giS-zC-aTv" id="axw-Yz-rMx"/>
@@ -815,8 +812,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="trash.fill" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

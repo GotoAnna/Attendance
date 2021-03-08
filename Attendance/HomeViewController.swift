@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var createLabel: UIButton!
     
     var trashButtonItem: UIBarButtonItem!
+    var googleButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,10 @@ class HomeViewController: UIViewController {
         createButton.layer.shadowRadius = 5
         createButton.layer.shadowColor = UIColor.black.cgColor
         createButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        
+        trashButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.trashButton))
+        googleButtonItem = UIBarButtonItem(image: UIImage(systemName: "g.circle.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.googleAccessButton))
+        self.navigationItem.rightBarButtonItems = [trashButtonItem, googleButtonItem]
            
     }
     
@@ -78,10 +83,42 @@ class HomeViewController: UIViewController {
         }
     }
 
-    @IBAction func trashButton(_ sender: Any) {
+    @objc func trashButton(_ sender: Any) {
         trashButtonTapped(homeTableView)
     }
     
+    @objc func googleAccessButton(_ sender: UIBarButtonItem) {
+        let urlscheme = "comgooglecalendar://" //カスタムURLスキーム
+
+                // URL作成
+                guard let url = URL(string: urlscheme) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(url) {
+                    print("GOOGLE")
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: { (succes) in
+                        })
+                    }else{
+                        UIApplication.shared.openURL(url)
+                    }
+                }else {
+                    // LINEアプリが無い場合
+                    let alert: UIAlertController = UIAlertController(title:"エラー", message: "Googleカレンダーがインストールされていません。", preferredStyle: .alert)
+                    
+                    //OKボタン
+                    alert.addAction(
+                        UIAlertAction(
+                            title: "OK",
+                            style: .default,
+                            handler: {action in
+                            //ボタンが押された時の動作
+                                print("OKボタンが押されました！")
+                            })
+                    )
+                    present(alert, animated: true, completion: nil)
+       }
+    }
 }
 
 
@@ -275,7 +312,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                      tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
                 }
                 else{
-                    let alert: UIAlertController = UIAlertController(title:"警告", message: "入室しているユーザーがいるため消去できません。", preferredStyle: .alert)
+                    let alert: UIAlertController = UIAlertController(title:"エラー", message: "入室しているユーザーがいるため消去できません。", preferredStyle: .alert)
                     
                     //OKボタン
                     alert.addAction(

@@ -27,6 +27,10 @@ class SignUpUserViewController: UIViewController {
         // Do any additional setup after loading the view.
         setUpElements()
         
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        //TextField外をタップするとキーボードを閉じる
         let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
                 tapGR.cancelsTouchesInView = false
                 self.view.addGestureRecognizer(tapGR)

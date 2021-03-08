@@ -26,6 +26,11 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         setUpElements()
         
+        //ナビゲーションバーの文字の色
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        //TextField外をタップするとキーボードを閉じる
         let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
                 tapGR.cancelsTouchesInView = false
                 self.view.addGestureRecognizer(tapGR)

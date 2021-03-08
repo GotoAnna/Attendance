@@ -60,24 +60,37 @@ class CreateRoomViewController: UIViewController {
         let roomName = roomnameTextField.text!
         let roomNumber = roomnumberTextField.text!
         
-        Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
-        //addDocument(data: ["roomname":roomName, "roomnumber":roomNumber])
-        
-        let alert: UIAlertController = UIAlertController(title:"保存", message: "保存が完了しました。", preferredStyle: .alert)
-        
-        //OKボタン
-        alert.addAction(
-            UIAlertAction(
-                title: "OK",
-                style: .default,
-                handler: {action in
-                    self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
-                    print("OKボタンが押されました！")
-                }
-                )
-        )
-        present(alert, animated: true, completion: nil)
-        
-        // self.navigationController?.popViewController(animated: true)
+        if roomName == "" || roomNumber == ""{
+            let alert: UIAlertController = UIAlertController(title:"エラー", message: "入力がされていません。", preferredStyle: .alert)
+            alert.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .default,
+                    handler: {action in
+                        print("OKボタンが押されました！")
+                    }
+                    )
+            )
+            present(alert, animated: true, completion: nil)
+        }
+        else{
+            Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
+            //addDocument(data: ["roomname":roomName, "roomnumber":roomNumber])
+            
+            let alert: UIAlertController = UIAlertController(title:"保存", message: "保存が完了しました。", preferredStyle: .alert)
+            
+            //OKボタン
+            alert.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .default,
+                    handler: {action in
+                        self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
+                        print("OKボタンが押されました！")
+                    }
+                    )
+            )
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
