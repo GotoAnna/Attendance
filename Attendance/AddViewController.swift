@@ -15,6 +15,8 @@ class AddViewController: UIViewController {
     private let cellid = "cellid"
    
     var enterRoom: String!
+    var roomNumber: String!
+    var roomEnterNum: String!
     var enterArray = [Rooms]()
     var enterUserName = [Rooms]()
     var enterNameCopy = [Rooms]()
@@ -144,6 +146,29 @@ class AddViewController: UIViewController {
                     break
                 }
                 else{ //部屋に本人のidがなかったらidを追加
+                    //self.EnterArray()
+                    print("RN:\(roomNumber)")
+                    print("EN:\(roomEnterNum)")
+                    print("CN:\(enterArray.count)")
+                    //定員人数を達して入室ボタンを押すと警告を表示
+                    if Int(roomNumber) == enterArray.count {
+                        print("一緒")
+                        let alert: UIAlertController = UIAlertController(title:"警告", message: "定員人数を達しています", preferredStyle: .alert)
+                        
+                        //OKボタン
+                        alert.addAction(
+                            UIAlertAction(
+                                title: "OK",
+                                style: .default,
+                                handler: {action in
+                                    //self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
+                                    print("OKボタンが押されました！")
+                                })
+                        )
+                        present(alert, animated: true, completion: nil)
+                        
+                    }
+                    else{
                     print("追加")
                     RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //Firestoreの部屋にユーザー本人を追加
                         if let err = err {
@@ -157,6 +182,7 @@ class AddViewController: UIViewController {
                         }
                     }
                     Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                    }
                     //break
                 }
             }//for文終わり
@@ -214,6 +240,14 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         cell.nameLabel.text = enterArray[indexPath.row].enterName
         cell.nameIconLabel.text = iconName //頭文字を表示
        
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let uN = user.displayName
+            if cell.nameLabel.text == uN{
+                cell.nameIconLabel.layer.borderWidth = 3.0    // 枠線の幅
+                cell.nameIconLabel.layer.borderColor = UIColor.init(red: 0.360, green: 0.215, blue: 1, alpha: 1).cgColor
+            }
+        }
         //頭文字をFireStoreに保存
         Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
         

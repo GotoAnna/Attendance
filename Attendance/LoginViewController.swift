@@ -25,7 +25,15 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
+        
+        let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
+                tapGR.cancelsTouchesInView = false
+                self.view.addGestureRecognizer(tapGR)
     }
+    
+    @objc func commitButtonTapped() {
+            self.view.endEditing(true)
+        }
     
     func setUpElements(){
         

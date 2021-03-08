@@ -16,9 +16,9 @@ class Utilities {
         // Create the bottom line
         let bottomLine = CALayer()
         
-        bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 2)
+        bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: UIScreen.main.bounds.size.width-85, height: 2)
         
-        bottomLine.backgroundColor = UIColor.init(red: 0.474, green: 0.835, blue: 0.870, alpha: 1).cgColor
+        bottomLine.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
         
         // Remove border on text field
         textfield.borderStyle = .none
@@ -32,12 +32,12 @@ class Utilities {
         
         // Filled rounded corner style
        // button.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1)
-        button.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
+        button.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         button.layer.cornerRadius = 20.0
         //button.tintColor = UIColor.black
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.layer.borderWidth = 3.0    // 枠線の幅
-        button.layer.borderColor = UIColor.init(red: 0.474, green: 0.835, blue: 0.870, alpha: 1).cgColor
+        button.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
         
         button.layer.shadowOpacity = 0.3
         button.layer.shadowRadius = 5
@@ -55,8 +55,10 @@ class Utilities {
     }
     
     static func isPasswordValid(_ password : String) -> Bool {
-        
+        //(?=.*[$@$#!%*?&])
+        //\\d$@$#!%*?&
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        //let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])[A-Za-z]{4,}")
         return passwordTest.evaluate(with: password)
     }
     

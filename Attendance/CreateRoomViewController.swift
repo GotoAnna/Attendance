@@ -26,7 +26,15 @@ class CreateRoomViewController: UIViewController {
         Utilities.styleTextField(roomnameTextField)
         Utilities.styleTextField(roomnumberTextField)
         Utilities.styleFilledButton(createButton)
+        
+        let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
+                tapGR.cancelsTouchesInView = false
+                self.view.addGestureRecognizer(tapGR)
     }
+    
+    @objc func commitButtonTapped() {
+            self.view.endEditing(true)
+        }
     
     private func fetchUserInfoFromFirestore(){
         let db = Firestore.firestore()
@@ -52,7 +60,7 @@ class CreateRoomViewController: UIViewController {
         let roomName = roomnameTextField.text!
         let roomNumber = roomnumberTextField.text!
         
-        Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber])
+        Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
         //addDocument(data: ["roomname":roomName, "roomnumber":roomNumber])
         
         let alert: UIAlertController = UIAlertController(title:"保存", message: "保存が完了しました。", preferredStyle: .alert)

@@ -19,7 +19,7 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var enterNum: UILabel!
     
-    @IBOutlet weak var stackView: UIStackView!
+    //@IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var icon1: UILabel!
     
@@ -50,7 +50,12 @@ class CustomTableViewCell: UITableViewCell {
         frameShadowView.layer.shadowRadius = 5
         frameShadowView.layer.shadowColor = UIColor.black.cgColor
         frameShadowView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        stackView.spacing = 10
+        //stackView.spacing = 10
+        
+       /* icon1.sizeToFit()
+        //余白となるサイズを加える
+        icon1.frame.size.width += 17
+        icon1.frame.size.height += 10*/
         
         icon1.layer.cornerRadius = 25
         icon1.clipsToBounds = true
@@ -62,6 +67,7 @@ class CustomTableViewCell: UITableViewCell {
         icon4.clipsToBounds = true
         icon5.layer.cornerRadius = 25
         icon5.clipsToBounds = true
+    
         
         /*label1.backgroundColor = UIColor.blue
         label1.textColor = UIColor.white

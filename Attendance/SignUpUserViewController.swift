@@ -26,20 +26,10 @@ class SignUpUserViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))//ツールバーのインスタンス生成
-        toolBar.barStyle = UIBarStyle.default //スタイルを設定
-        toolBar.sizeToFit() //画面はばに合わせてサイズを変更
         
-        //閉じるボタンをみぎに配置するためのスペース
-        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-        // 閉じるボタン
-        let commitButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(SignUpUserViewController.commitButtonTapped))
-        //スペース、閉じるボタンを右側に配置
-        toolBar.items = [spacer, commitButton]
-        // テキストフィールドにツールバーを設定
-        userNameTextField.inputAccessoryView = toolBar
-        emailTextField.inputAccessoryView = toolBar
-        passwordTextField.inputAccessoryView = toolBar
+        let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
+                tapGR.cancelsTouchesInView = false
+                self.view.addGestureRecognizer(tapGR)
     }
     
     @objc func commitButtonTapped() {
@@ -74,7 +64,7 @@ class SignUpUserViewController: UIViewController {
         
         if Utilities.isPasswordValid(cleanedPassword) == false{
             //パスワードが十分でない
-            return "Please make sure your passward is at least 8 chracters, contains a special character and a number."
+            return "Passward is at least 8 chracters, contains a special character($@$#!%*?&) and a number(123456789). ex)tester1234@"
         }
         
         return nil

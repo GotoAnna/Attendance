@@ -18,13 +18,21 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setUpElements()
-        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
-        self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.392, green: 0.972, blue: 0.972, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
+        
+        signUpButton.layer.borderWidth = 3.0    // 枠線の幅
+        signUpButton.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
+        signUpButton.layer.cornerRadius = 20.0
+        signUpButton.layer.shadowOpacity = 0.3
+        signUpButton.layer.shadowRadius = 5
+        signUpButton.layer.shadowColor = UIColor.black.cgColor
+        signUpButton.layer.shadowOffset = CGSize(width: 5, height: 5)
     }
     
     func setUpElements(){
         //スタイル
-        Utilities.styleFilledButton(signUpButton)
+        //Utilities.styleFilledButton(signUpButton)
         Utilities.styleFilledButton(loginButton)
     }
     
