@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //もし一度ログインしたユーザーだったら, skipLogin()を呼ぶ
         if Auth.auth().currentUser != nil{
-            //skipLogin()
+            skipLogin()
         }
     }
 

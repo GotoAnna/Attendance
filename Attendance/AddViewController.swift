@@ -262,14 +262,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         cell.nameLabel.text = enterArray[indexPath.row].enterName
         cell.nameIconLabel.text = iconName //頭文字を表示
        
-        let user = Auth.auth().currentUser
-        if let user = user {
-            let uN = user.displayName
-            if cell.nameLabel.text == uN{
-                cell.nameIconLabel.layer.borderWidth = 3.0    // 枠線の幅
-                cell.nameIconLabel.layer.borderColor = UIColor.init(red: 0.360, green: 0.215, blue: 1, alpha: 1).cgColor
-            }
-        }
+        
         //頭文字をFireStoreに保存
         Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
         

@@ -28,6 +28,23 @@ class Utilities {
         
     }
     
+    static func styleTextField1(_ textfield:UITextField) {
+        
+        // Create the bottom line
+        let bottomLine = CALayer()
+        
+        bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: UIScreen.main.bounds.size.width-100, height: 2)
+        
+        bottomLine.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
+        
+        // Remove border on text field
+        textfield.borderStyle = .none
+        
+        // Add the line to the text field
+        textfield.layer.addSublayer(bottomLine)
+        
+    }
+    
     static func styleFilledButton(_ button:UIButton) {
         
         // Filled rounded corner style

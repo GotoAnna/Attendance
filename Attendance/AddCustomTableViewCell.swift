@@ -20,6 +20,9 @@ class AddCustomTableViewCell: UITableViewCell {
         // Initialization code
         nameIconLabel.layer.cornerRadius = 25
         nameIconLabel.clipsToBounds = true
+        
+        nameIconLabel.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
+        nameIconLabel.layer.borderWidth = 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

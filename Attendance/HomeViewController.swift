@@ -83,6 +83,20 @@ class HomeViewController: UIViewController {
         }
     }
 
+    @IBAction func logoutButton(){
+        do{
+            try Auth.auth().signOut()
+            //let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
+            //let ViewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+            //self.present(ViewController, animated: true, completion: nil)
+            view.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "Navi")
+            view.window?.makeKeyAndVisible()
+        }
+        catch{
+            print("ログアウトに失敗しました\(error)")
+        }
+    }
+    
     @objc func trashButton(_ sender: Any) {
         trashButtonTapped(homeTableView)
     }
@@ -133,7 +147,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
         
-        if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
+       if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
             cell.frameView.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
             cell.frameView.layer.borderWidth = 5
         }
@@ -168,7 +182,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 print("ICON:\(room.iconName)")
             })
         }
-        
+    
         cell.icon1.isHidden = false
         cell.icon2.isHidden = false
         cell.icon3.isHidden = false
@@ -232,6 +246,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.icon5.text = roomsArray[indexPath.row].iconNameArray[4]
             cell.icon6.isHidden = false
         }
+        if number >= 7{
+            cell.icon1.text = roomsArray[indexPath.row].iconNameArray[0]
+            cell.icon2.text = roomsArray[indexPath.row].iconNameArray[1]
+            cell.icon3.text = roomsArray[indexPath.row].iconNameArray[2]
+            cell.icon4.text = roomsArray[indexPath.row].iconNameArray[3]
+            cell.icon5.text = roomsArray[indexPath.row].iconNameArray[4]
+            cell.icon6.isHidden = false
+        }
       
         return cell
     }
@@ -269,7 +291,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         {
             tableView.isEditing = false //編集不可
             print("編集可能")
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:  .trash, target: self, action: #selector(self.trashButton))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.trashButton))
             //EditButton.title = "Edit"
         }
         else{

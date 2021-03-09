@@ -23,8 +23,8 @@ class CreateRoomViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         fetchUserInfoFromFirestore()
-        Utilities.styleTextField(roomnameTextField)
-        Utilities.styleTextField(roomnumberTextField)
+        Utilities.styleTextField1(roomnameTextField)
+        Utilities.styleTextField1(roomnumberTextField)
         Utilities.styleFilledButton(createButton)
         
         let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
