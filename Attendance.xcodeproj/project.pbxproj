@@ -17,6 +17,8 @@
 		0418437225E50C39003FE731 /* AttendanceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418437125E50C39003FE731 /* AttendanceUITests.swift */; };
 		0418438B25E5108C003FE731 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0418438A25E5108C003FE731 /* GoogleService-Info.plist */; };
 		041F05C325F3DD2300576188 /* enter.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F05C225F3DD2300576188 /* enter.png */; };
+		041F061925F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F061825F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png */; };
+		041F061E25F79FD000576188 /* ICON2.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F061D25F79FD000576188 /* ICON2.png */; };
 		04EB2A1E25E696D300A38A7D /* SignUpUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A1D25E696D300A38A7D /* SignUpUserViewController.swift */; };
 		04EB2A2325E6970B00A38A7D /* LoginAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A2225E6970B00A38A7D /* LoginAccountViewController.swift */; };
 		04EB2A2825E6973E00A38A7D /* SignUpAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB2A2725E6973E00A38A7D /* SignUpAccountViewController.swift */; };
@@ -68,6 +70,8 @@
 		0418437325E50C39003FE731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0418438A25E5108C003FE731 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		041F05C225F3DD2300576188 /* enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enter.png; sourceTree = "<group>"; };
+		041F061825F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2021-03-09 21.17.35.png"; sourceTree = "<group>"; };
+		041F061D25F79FD000576188 /* ICON2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON2.png; sourceTree = "<group>"; };
 		04EB2A1D25E696D300A38A7D /* SignUpUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUserViewController.swift; sourceTree = "<group>"; };
 		04EB2A2225E6970B00A38A7D /* LoginAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountViewController.swift; sourceTree = "<group>"; };
 		04EB2A2725E6973E00A38A7D /* SignUpAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAccountViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				041F05C225F3DD2300576188 /* enter.png */,
+				041F061D25F79FD000576188 /* ICON2.png */,
+				041F061825F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png */,
 				04EB2A1D25E696D300A38A7D /* SignUpUserViewController.swift */,
 				04EB2A2C25E69DC300A38A7D /* LoginViewController.swift */,
 				04EB2A2725E6973E00A38A7D /* SignUpAccountViewController.swift */,
@@ -328,8 +334,10 @@
 			files = (
 				0418435C25E50C39003FE731 /* LaunchScreen.storyboard in Resources */,
 				041F05C325F3DD2300576188 /* enter.png in Resources */,
+				041F061925F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png in Resources */,
 				0418438B25E5108C003FE731 /* GoogleService-Info.plist in Resources */,
 				0418435925E50C39003FE731 /* Assets.xcassets in Resources */,
+				041F061E25F79FD000576188 /* ICON2.png in Resources */,
 				0418435725E50C38003FE731 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
