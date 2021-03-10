@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
     var trashButtonItem: UIBarButtonItem!
     var googleButtonItem: UIBarButtonItem!
     
+    let semaphore = DispatchSemaphore(value: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
