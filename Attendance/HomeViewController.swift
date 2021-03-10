@@ -38,12 +38,11 @@ class HomeViewController: UIViewController {
         homeTableView.dataSource = self
         createButton.layer.cornerRadius = 30
         
-        self.navigationItem.title = "Title"
+        self.navigationItem.title = "NagataLab"
         self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-
       
         createLabel.layer.borderWidth = 3.0    // 枠線の幅
         createLabel.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
@@ -148,7 +147,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
         
        if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
-            cell.frameView.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
+        cell.frameView.layer.borderColor = UIColor.init(red: 0.823, green: 0.027, blue: 0.760, alpha: 0.8).cgColor
             cell.frameView.layer.borderWidth = 5
         }
         else{

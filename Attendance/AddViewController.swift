@@ -21,6 +21,7 @@ class AddViewController: UIViewController {
     var enterUserName = [Rooms]()
     var enterNameCopy = [Rooms]()
     var enterNumArray = [Rooms]()
+    var roomsArray = [Rooms]()
     var EnterUser: String!
     var enterFlag: Int = 0
     var iconArray = [Int]()
@@ -36,17 +37,27 @@ class AddViewController: UIViewController {
         // Do any additional setup after loading the view.
         addTableView.delegate = self
         addTableView.dataSource = self
-    
-        //let paperPlane = UIImage(systemName: "paperplane.fill")
-        
-        //let enterName = Firestore.firestore().collection("users")
-        
+
         self.navigationItem.title = enterRoom
       
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
-        let RoomNum = Firestore.firestore().collection("room").document(enterRoom)
+        //let Room = Firestore.firestore().collection("room")
         
         self.enterArray = [Rooms]()
+        self.roomsArray = [Rooms]()
+        
+        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+               // let dic = snapshot.data()
+                let room = Rooms(document: snapshot)
+                self.roomsArray.append(room)
+                print("ICON:\(room.iconNameArray)")
+            })
+        }
         
         //enterArrayに(部屋に入室しているユーザーの情報)を格納
         RoomData.getDocuments{ (snapshots, err) in
@@ -119,9 +130,30 @@ class AddViewController: UIViewController {
             }
             //print("ユーザー名：\(userName)")
             let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
+            let Room = Firestore.firestore().collection("room")
             //もし, 部屋に誰もいなかったら
             if enterArray.isEmpty == true{
                 self.enterArray = [Rooms]()
+                //新しい部屋に入室したら, 前いた部屋からユーザーを消去
+                for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
+                    for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
+                        if name == iconName{ //本人の名前があったら(本人が入室していたら)
+                            print("消去") //その部屋からユーザーを消去
+                            Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
+                                if let err = err {
+                                    print("Error removing document: \(err)")
+                                } else { //消去に成功
+                                    print("FireStore消去")
+                                    Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
+                                    Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
+                                    //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
+                                    //self.EnterArray1(name: roomData.roomName)
+                                }
+                            }
+                        }
+                    }
+                }
+                //新しく入る部屋にユーザーを追加
                 RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
                         print("Error writing document: \(err)")
@@ -180,19 +212,39 @@ class AddViewController: UIViewController {
                         
                     }
                     else{
-                    print("追加")
-                    RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //Firestoreの部屋にユーザー本人を追加
-                        if let err = err {
-                            print("Error writing document: \(err)")
-                        } else {
-                            print("FireStore追加")
-                            //self.enterButton.title = "退出"
-                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
-                            //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
-                            self.EnterArray()
+                        //新しい部屋に入室したら, 前いた部屋からユーザーを消去
+                        for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
+                            for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
+                                if name == iconName{ //本人の名前があったら(本人が入室していたら)
+                                    print("消去") //その部屋からユーザーを消去
+                                    Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
+                                        if let err = err {
+                                            print("Error removing document: \(err)")
+                                        } else { //消去に成功
+                                            print("FireStore消去")
+                                            Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
+                                            
+                                            Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
+                                            //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-                    Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                        
+                        //新しく入る部屋にユーザーを追加
+                        RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //Firestoreの部屋にユーザー本人を追加
+                            if let err = err {
+                                print("Error writing document: \(err)")
+                            } else {
+                                print("FireStore追加")
+                                //self.enterButton.title = "退出"
+                                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
+                                //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
+                                self.EnterArray()
+                            }
+                        }
+                        Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                     }
                     //break
                 }
@@ -233,11 +285,38 @@ class AddViewController: UIViewController {
         }
     }
     
+    func EnterArray1(name: String){
+        
+        let RoomData = Firestore.firestore().collection("room").document(name).collection("enterUser")
+        RoomData.getDocuments{ (snapshots, err) in
+            self.enterArray = [Rooms]()
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+                let room = Rooms(document: snapshot)
+                let user = Auth.auth().currentUser
+                if let user = user {
+                    let uid = user.uid
+                    if uid == room.enterUser{
+                        self.enterArray.insert(room, at: 0)
+                    }
+                    else{
+                        self.enterArray.append(room) //ユーザを追加
+                    }
+                }
+            })
+            DispatchQueue.main.async {
+                self.addTableView.reloadData() //TableViewの更新
+            }
+        }
+    }
+    
 }
 
 
 extension AddViewController: UITableViewDelegate, UITableViewDataSource{
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -251,7 +330,43 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! AddCustomTableViewCell
         var icon: String!
         var iconName: String!
-      
+        
+        switch indexPath.row{
+        case 0:
+            print("orange")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.972, green: 0.792, blue: 0.6, alpha: 0.6)
+        case 1:
+            print("green")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.749, green: 0.972, blue: 0.58, alpha: 0.6)
+        case 2:
+            print("blue")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.737, green: 0.972, blue: 0.956, alpha: 0.6)
+        case 3:
+            print("pink")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.945, green: 0.803, blue: 0.972, alpha: 0.6)
+        case 4:
+            print("yellow")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.972, green: 0.937, blue: 0.545, alpha: 0.6)
+        case 5:
+            print("green")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.749, green: 0.972, blue: 0.58, alpha: 0.6)
+        case 6:
+            print("orange")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.972, green: 0.792, blue: 0.6, alpha: 0.6)
+        case 7:
+            print("yellow")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.972, green: 0.937, blue: 0.545, alpha: 0.6)
+        case 8:
+            print("blue")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.737, green: 0.972, blue: 0.956, alpha: 0.6)
+        case 9:
+            print("pink")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 0.945, green: 0.803, blue: 0.972, alpha: 0.6)
+        default:
+            print("その他")
+            cell.nameIconLabel.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1.0)
+        }
+    
         icon = enterArray[indexPath.row].enterName //ユーザー名
         for num in icon {
             //print(num)

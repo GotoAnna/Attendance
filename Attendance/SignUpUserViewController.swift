@@ -17,9 +17,13 @@ class SignUpUserViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var authCodeTextField: UITextField!
+    
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var signUpButton: UIButton!
+    
+    let authCode: String = "NagataLab"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +51,8 @@ class SignUpUserViewController: UIViewController {
         Utilities.styleTextField(userNameTextField)
         Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
+        Utilities.styleTextField(authCodeTextField)
         Utilities.styleFilledButton(signUpButton)
-        
     }
     
     //フィールドを検証するメソッド
@@ -59,8 +63,8 @@ class SignUpUserViewController: UIViewController {
         //TextFieldが空の場合, エラーメッセージを返す
         if userNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-            
+            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            authCodeTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             return "Please fill in all fields."
         }
         //パスワードが安全かどうか確認
@@ -86,9 +90,55 @@ class SignUpUserViewController: UIViewController {
             let userName = userNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let enterAuthCode: String = authCodeTextField.text!
             
+            if authCode == enterAuthCode{ //認証コードが一致しているか確認
+                //ユーザーを作成
+                Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+                    //エラーをチェック
+                    if err != nil{
+                        self.showError("Error creating user")
+                    }
+                    else{
+                        //成功したら, 名前をストアに保存
+                        let db = Firestore.firestore()
+                        db.collection("users").addDocument(data: ["username": userName, "uid": result!.user.uid]){(error) in
+                           
+                           let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                            changeRequest?.displayName = userName
+                            changeRequest?.commitChanges { (error) in
+                                if let error = error {
+                                          print("エラー")
+                                        } else {
+                                          print("成功:\(changeRequest?.displayName)")
+                                        }
+                            }
+                            
+                            if error != nil{
+                                self.showError("User date couldn't")
+                            }
+                        }
+                        //ホーム画面に移行
+                        self.transitionToHome()
+                    }
+                }
+            }
+            else{
+                let alert: UIAlertController = UIAlertController(title:"エラー", message: "認証コードが異なります。", preferredStyle: .alert)
+                //OKボタン
+                alert.addAction(
+                    UIAlertAction(
+                        title: "OK",
+                        style: .default,
+                        handler: {action in
+                            //self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
+                            print("OKボタンが押されました！")
+                        })
+                )
+                present(alert, animated: true, completion: nil)
+            }
             //ユーザーを作成
-            Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+          /*  Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
                 //エラーをチェック
                 if err != nil{
                     self.showError("Error creating user")
@@ -116,7 +166,7 @@ class SignUpUserViewController: UIViewController {
                     self.transitionToHome()
                 }
                 
-            }
+            }*/
         }
     }
     

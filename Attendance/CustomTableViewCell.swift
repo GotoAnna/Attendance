@@ -69,20 +69,15 @@ class CustomTableViewCell: UITableViewCell {
         icon5.clipsToBounds = true
     
         icon1.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
-        icon1.layer.borderWidth = 3
+        icon1.layer.borderWidth = 2
         icon2.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
-        icon2.layer.borderWidth = 3
+        icon2.layer.borderWidth = 2
         icon3.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
-        icon3.layer.borderWidth = 3
+        icon3.layer.borderWidth = 2
         icon4.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
-        icon4.layer.borderWidth = 3
+        icon4.layer.borderWidth = 2
         icon5.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
-        icon5.layer.borderWidth = 3
-        
-        icon1.layer.shadowOpacity = 0.5
-        icon1.layer.shadowRadius = 5
-        icon1.layer.shadowColor = UIColor.black.cgColor
-        icon1.layer.shadowOffset = CGSize(width: 5, height: 5)
+        icon5.layer.borderWidth = 2
         
         /*label1.backgroundColor = UIColor.blue
         label1.textColor = UIColor.white
