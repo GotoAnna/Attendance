@@ -38,6 +38,8 @@ class AddViewController: UIViewController {
         addTableView.delegate = self
         addTableView.dataSource = self
 
+        addTableView.backgroundColor = UIColor.white
+        
         self.navigationItem.title = enterRoom
       
         let RoomData = Firestore.firestore().collection("room").document(enterRoom).collection("enterUser")
@@ -153,6 +155,8 @@ class AddViewController: UIViewController {
                         }
                     }
                 }
+                //"now -> " + NSDate().toString(format:"yyyy-M-d HH:mm:ss")!
+                let enterTime: NSDate = NSDate()
                 //新しく入る部屋にユーザーを追加
                 RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
@@ -330,6 +334,10 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! AddCustomTableViewCell
         var icon: String!
         var iconName: String!
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        cell.timeLabel.text  = "入室時間：" + formatter.string(from: NSDate() as Date)
         
         switch indexPath.row{
         case 0:

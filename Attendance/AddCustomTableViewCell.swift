@@ -15,9 +15,12 @@ class AddCustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameIconLabel: UILabel!
     
+    @IBOutlet weak var timeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        nameLabel.textColor = UIColor.black
         nameIconLabel.layer.cornerRadius = 25
         nameIconLabel.clipsToBounds = true
         

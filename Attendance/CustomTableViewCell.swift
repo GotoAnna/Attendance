@@ -19,7 +19,9 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var enterNum: UILabel!
     
-    //@IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var aLabel: UILabel!
+   
+    @IBOutlet weak var bLabel: UILabel!
     
     @IBOutlet weak var icon1: UILabel!
     
@@ -52,10 +54,6 @@ class CustomTableViewCell: UITableViewCell {
         frameShadowView.layer.shadowOffset = CGSize(width: 5, height: 5)
         //stackView.spacing = 10
         
-       /* icon1.sizeToFit()
-        //余白となるサイズを加える
-        icon1.frame.size.width += 17
-        icon1.frame.size.height += 10*/
         
         icon1.layer.cornerRadius = 25
         icon1.clipsToBounds = true
@@ -79,14 +77,10 @@ class CustomTableViewCell: UITableViewCell {
         icon5.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
         icon5.layer.borderWidth = 2
         
-        /*label1.backgroundColor = UIColor.blue
-        label1.textColor = UIColor.white
-        label1.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        label1.translatesAutoresizingMaskIntoConstraints = false
-        label1.textAlignment = NSTextAlignment.center
-        label1.layer.cornerRadius = 25
-        label1.clipsToBounds = true
-        label1.text = "後"*/
+        enterNum.textColor = UIColor.black
+        aLabel.textColor = UIColor.black
+        bLabel.textColor = UIColor.black
+        roomLabel.textColor = UIColor.black
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

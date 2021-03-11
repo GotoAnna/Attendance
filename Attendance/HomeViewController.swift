@@ -29,9 +29,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var createLabel: UIButton!
     
     var trashButtonItem: UIBarButtonItem!
+    
     var googleButtonItem: UIBarButtonItem!
 
     var refreshControl: UIRefreshControl! //下スクロールでリフレッシュ
+    
+    var enterTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,8 @@ class HomeViewController: UIViewController {
         homeTableView.dataSource = self
         createButton.layer.cornerRadius = 30
         
+        homeTableView.backgroundColor = UIColor.white
+    
         self.navigationItem.title = "NagataLab"
         self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
@@ -58,15 +63,23 @@ class HomeViewController: UIViewController {
         googleButtonItem = UIBarButtonItem(image: UIImage(systemName: "g.circle.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.googleAccessButton))
         self.navigationItem.rightBarButtonItems = [trashButtonItem, googleButtonItem]
         
+        //アプリがフォアグランドになった時にデータを更新
         NotificationCenter.default.addObserver(self,selector: #selector(viewWillEnterForeground(_:)), name: UIScene.willEnterForegroundNotification,object: nil)
         
-        //UIRefreshControlを設置
+        //UIRefreshControlを設置、下スクロール更新
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "再読み込み中")
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         homeTableView.addSubview(refreshControl)
+        
+        enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
+
     }
     
+    @objc func timerUpdate(){
+        print("時間だよ！")
+    }
+    //アプリがフォアグランドになった時にデータを更新
     @objc func viewWillEnterForeground(_ notification: Notification?) {
         print("viewWillEnterForeground")
         roomsArray = [Rooms]()
@@ -200,6 +213,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
         
+        cell.backgroundColor = UIColor.white
+            
        if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
         cell.frameView.layer.borderColor = UIColor.init(red: 0.823, green: 0.027, blue: 0.760, alpha: 0.8).cgColor
             cell.frameView.layer.borderWidth = 5
@@ -212,10 +227,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
         //cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
-        
+        cell.enterNum.isHidden = false
+        cell.aLabel.isHidden = false
+        cell.bLabel.isHidden = false
+        cell.numberLabel.textColor = UIColor.black
         if roomsArray[indexPath.row].roomEnterNum == ""{
             number = 0
             cell.enterNum.text = "0"
+        }
+        else if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
+            number = Int(roomsArray[indexPath.row].roomEnterNum)!
+            cell.numberLabel.text = "満員"
+            cell.numberLabel.textColor = UIColor.red
+            cell.enterNum.isHidden = true
+            cell.aLabel.isHidden = true
+            cell.bLabel.isHidden = true
         }
         else{
             cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
