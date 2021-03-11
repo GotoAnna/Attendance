@@ -30,7 +30,7 @@ class Rooms{
         self.userId = Dic["uid"] as? String ?? ""
         self.roomEnterNum = Dic["roomEnterNum"] as? String ?? ""
         self.iconName = Dic["iconName"] as? String ?? ""
-        self.enterTime = Dic["iconName"] as? String ?? ""
+        self.enterTime = Dic["enterTime"] as? String ?? ""
         self.iconNameArray = Dic["iconNameArray"] as? [String] ?? []
         //print("Dic\(self.iconNameArray)")
     }

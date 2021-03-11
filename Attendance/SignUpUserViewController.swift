@@ -38,6 +38,9 @@ class SignUpUserViewController: UIViewController {
         let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
                 tapGR.cancelsTouchesInView = false
                 self.view.addGestureRecognizer(tapGR)
+        
+        //authCodeTextField.isSecureTextEntry = true
+        //authCodeTextField.keyboardType = .alphabet
     }
     
     @objc func commitButtonTapped() {

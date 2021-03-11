@@ -27,6 +27,7 @@ class AddViewController: UIViewController {
     var iconArray = [Int]()
     var num: Int = 0
     
+    
     @IBOutlet weak var addTableView: UITableView!
     
     @IBOutlet weak var enterButton: UIBarButtonItem!
@@ -38,7 +39,7 @@ class AddViewController: UIViewController {
         addTableView.delegate = self
         addTableView.dataSource = self
 
-        addTableView.backgroundColor = UIColor.white
+        //addTableView.backgroundColor = UIColor.white
         
         self.navigationItem.title = enterRoom
       
@@ -119,6 +120,9 @@ class AddViewController: UIViewController {
     
     @IBAction func onClickEnterButton() {
         print("押された！")
+        let enterTime: NSDate = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
         var iconName: String!
         let user = Auth.auth().currentUser
         if let user = user {//もし, ユーザー本人だったらFireStoreの部屋にユーザーを追加
@@ -137,6 +141,7 @@ class AddViewController: UIViewController {
             if enterArray.isEmpty == true{
                 self.enterArray = [Rooms]()
                 //新しい部屋に入室したら, 前いた部屋からユーザーを消去
+                var flag = 0
                 for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
                     for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
                         if name == iconName{ //本人の名前があったら(本人が入室していたら)
@@ -144,8 +149,10 @@ class AddViewController: UIViewController {
                             Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
                                 if let err = err {
                                     print("Error removing document: \(err)")
+                                    //flag = 1
                                 } else { //消去に成功
                                     print("FireStore消去")
+                                   // flag = 1
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
                                     //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
@@ -156,20 +163,20 @@ class AddViewController: UIViewController {
                     }
                 }
                 //"now -> " + NSDate().toString(format:"yyyy-M-d HH:mm:ss")!
-                let enterTime: NSDate = NSDate()
                 //新しく入る部屋にユーザーを追加
-                RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //FireStoreにユーザー本人を追加(入室)
+                RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
                         print("入室")
                         //self.enterButton.title = "退出"
                         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
+                        //頭文字を追加
+                        Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                         //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                         self.EnterArray()
                     }
                 }
-                Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
             }
             
             //部屋に入室しているユーザーの中に本人がいるかどうか確認
@@ -220,7 +227,7 @@ class AddViewController: UIViewController {
                         for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
                             for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
                                 if name == iconName{ //本人の名前があったら(本人が入室していたら)
-                                    print("消去") //その部屋からユーザーを消去
+                                    print("ELSE消去") //その部屋からユーザーを消去
                                     Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
                                         if let err = err {
                                             print("Error removing document: \(err)")
@@ -237,18 +244,20 @@ class AddViewController: UIViewController {
                         }
                         
                         //新しく入る部屋にユーザーを追加
-                        RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName]){ err in //Firestoreの部屋にユーザー本人を追加
+                        RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //Firestoreの部屋にユーザー本人を追加
                             if let err = err {
                                 print("Error writing document: \(err)")
                             } else {
                                 print("FireStore追加")
                                 //self.enterButton.title = "退出"
                                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
+                            
+                               Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                                 //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
                                 self.EnterArray()
                             }
                         }
-                        Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                        //Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                     }
                     //break
                 }
@@ -335,9 +344,13 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
         var icon: String!
         var iconName: String!
         
+        cell.backgroundColor = UIColor.init(red: 0.933, green: 0.941, blue: 0.984, alpha: 1)
+        addTableView.backgroundColor = UIColor.init(red: 0.933, green: 0.941, blue: 0.984, alpha: 1)
+        
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
-        cell.timeLabel.text  = "入室時間：" + formatter.string(from: NSDate() as Date)
+        formatter.dateFormat = "HH:mm:"
+        cell.timeLabel.text  = "入室　" + enterArray[indexPath.row].enterTime//formatter.string(from: NSDate() as Date)
+        cell.timeLabel.textColor = UIColor.darkGray
         
         switch indexPath.row{
         case 0:
@@ -387,7 +400,7 @@ extension AddViewController: UITableViewDelegate, UITableViewDataSource{
        
         
         //頭文字をFireStoreに保存
-        Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
+        //Firestore.firestore().collection("room").document(enterRoom).collection("enterUser").document(enterArray[indexPath.row].enterUser).updateData(["iconName": iconName])
         
        // Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
         
