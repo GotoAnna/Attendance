@@ -120,6 +120,7 @@ class AddViewController: UIViewController {
     
     @IBAction func onClickEnterButton() {
         print("押された！")
+        var enterTimer: Timer!
         let enterTime: NSDate = NSDate()
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
@@ -162,7 +163,30 @@ class AddViewController: UIViewController {
                         }
                     }
                 }
-                //"now -> " + NSDate().toString(format:"yyyy-M-d HH:mm:ss")!
+        
+               /* let date2 = Date(timeInterval: 10, since: enterTime as Date)
+                // 年月日時分秒をそれぞれまとめて取得
+                let targetDate = Calendar.current.dateComponents([.second], from: date2)
+                // トリガーの作成
+                let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
+                // 通知コンテンツの作成
+                        let content = UNMutableNotificationContent()
+                        content.title = "Calendar Notification"
+                        content.body = "時間だよ！"
+                        content.sound = UNNotificationSound.default
+                 
+                // 通知リクエストの作成
+                let request = UNNotificationRequest.init(
+                                identifier: "CalendarNotification",
+                                content: content,
+                                trigger: trigger)
+                
+                // 通知をセット
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)*/
+                //通知機能
+                message(enter: enterTime)
+                //10s後に処理する
+                enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
                 //新しく入る部屋にユーザーを追加
                 RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
@@ -242,7 +266,8 @@ class AddViewController: UIViewController {
                                 }
                             }
                         }
-                        
+                        //通知機能
+                        message(enter: enterTime)
                         //新しく入る部屋にユーザーを追加
                         RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //Firestoreの部屋にユーザー本人を追加
                             if let err = err {
@@ -297,33 +322,33 @@ class AddViewController: UIViewController {
             }
         }
     }
+
     
-    func EnterArray1(name: String){
+    @objc func timerUpdate(){
+        print("時間だよ！")
+        //(8時間超えるとお知らせ)通知機能をかく
+    }
+    
+    func message(enter: NSDate){
+        let date2 = Date(timeInterval: 10, since: enter as Date)
+        // 年月日時分秒をそれぞれまとめて取得
+        let targetDate = Calendar.current.dateComponents([.second], from: date2)
+        // トリガーの作成
+        let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
+        // 通知コンテンツの作成
+                let content = UNMutableNotificationContent()
+                content.title = "Calendar Notification"
+                content.body = "時間だよ！"
+                content.sound = UNNotificationSound.default
+         
+        // 通知リクエストの作成
+        let request = UNNotificationRequest.init(
+                        identifier: "CalendarNotification",
+                        content: content,
+                        trigger: trigger)
         
-        let RoomData = Firestore.firestore().collection("room").document(name).collection("enterUser")
-        RoomData.getDocuments{ (snapshots, err) in
-            self.enterArray = [Rooms]()
-            if let err = err{
-                print("失敗")
-                return
-            }
-            snapshots?.documents.forEach({ (snapshot) in
-                let room = Rooms(document: snapshot)
-                let user = Auth.auth().currentUser
-                if let user = user {
-                    let uid = user.uid
-                    if uid == room.enterUser{
-                        self.enterArray.insert(room, at: 0)
-                    }
-                    else{
-                        self.enterArray.append(room) //ユーザを追加
-                    }
-                }
-            })
-            DispatchQueue.main.async {
-                self.addTableView.reloadData() //TableViewの更新
-            }
-        }
+        // 通知をセット
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
 }

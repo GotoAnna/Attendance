@@ -9,12 +9,22 @@ import UIKit
 import Firebase
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("アプリが起動されたよ")
         FirebaseApp.configure()
+        
+        // 通知許可の取得
+        UNUserNotificationCenter.current().requestAuthorization(
+        options: [.alert, .sound, .badge]){
+            (granted, _) in
+            if granted{
+                UNUserNotificationCenter.current().delegate = self
+            }
+        }
+        
         return true
     }
 
@@ -37,5 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          // アプリがフォアグラウンドへ移行するタイミングを通知
         NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
      }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+            willPresent notification: UNNotification,
+            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+     
+            //os_log("Notified")
+            // アプリ起動時も通知を行う
+            completionHandler([.sound, .alert ])
+    }
 }
 

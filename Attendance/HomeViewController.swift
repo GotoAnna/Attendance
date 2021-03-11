@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         homeTableView.addSubview(refreshControl)
         
-        enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
+        //enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
 
     }
     
