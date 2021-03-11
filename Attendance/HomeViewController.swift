@@ -30,8 +30,8 @@ class HomeViewController: UIViewController {
     
     var trashButtonItem: UIBarButtonItem!
     var googleButtonItem: UIBarButtonItem!
-    
-    let semaphore = DispatchSemaphore(value: 1)
+
+    var refreshControl: UIRefreshControl! //下スクロールでリフレッシュ
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +57,35 @@ class HomeViewController: UIViewController {
         trashButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.trashButton))
         googleButtonItem = UIBarButtonItem(image: UIImage(systemName: "g.circle.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.googleAccessButton))
         self.navigationItem.rightBarButtonItems = [trashButtonItem, googleButtonItem]
-           
+        
+        NotificationCenter.default.addObserver(self,selector: #selector(viewWillEnterForeground(_:)), name: UIScene.willEnterForegroundNotification,object: nil)
+        
+        //UIRefreshControlを設置
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "再読み込み中")
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        homeTableView.addSubview(refreshControl)
+    }
+    
+    @objc func viewWillEnterForeground(_ notification: Notification?) {
+        print("viewWillEnterForeground")
+        roomsArray = [Rooms]()
+        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+                //print("リフレッシュ")
+                let room = Rooms(document: snapshot)
+                self.roomsArray.append(room)
+                print("ICON:\(room.iconNameArray)")
+            })
+            DispatchQueue.main.async {
+                self.homeTableView.reloadData() //TableViewの更新
+                //self.semaphore.signal()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +111,31 @@ class HomeViewController: UIViewController {
             }
         }
     }
-
+    
+    //下スクロールで更新
+    @objc func refresh(){
+        print("リフレッシュ")
+        roomsArray = [Rooms]()
+        Firestore.firestore().collection("room").getDocuments{ (snapshots, err) in
+            if let err = err{
+                print("失敗")
+                return
+            }
+            snapshots?.documents.forEach({ (snapshot) in
+                //print("リフレッシュ")
+                let room = Rooms(document: snapshot)
+                self.roomsArray.append(room)
+                print("ICON:\(room.iconNameArray)")
+            })
+            DispatchQueue.main.async {
+                self.homeTableView.reloadData() //TableViewの更新
+                //self.semaphore.signal()
+            }
+        }
+        //データ更新関数が終了したら, リフレッシュの表示も終了する
+        refreshControl?.endRefreshing()
+    }
+    
     @IBAction func logoutButton(){
         do{
             try Auth.auth().signOut()

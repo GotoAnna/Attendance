@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("アプリが起動されたよ")
         FirebaseApp.configure()
         return true
     }
@@ -31,6 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+         // アプリがフォアグラウンドへ移行するタイミングを通知
+        NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
+     }
 }
 
