@@ -267,8 +267,6 @@ class AddViewController: UIViewController {
                                Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                                 //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
                                 self.EnterArray()
-                                //通知機能
-                                //self.message(enter: enterTime)
                             }
                         }
                         //通知機能
