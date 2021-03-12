@@ -26,6 +26,7 @@ class AddViewController: UIViewController {
     var enterFlag: Int = 0
     var iconArray = [Int]()
     var num: Int = 0
+    var flag: Int = 0
     
     
     @IBOutlet weak var addTableView: UITableView!
@@ -142,18 +143,16 @@ class AddViewController: UIViewController {
             if enterArray.isEmpty == true{
                 self.enterArray = [Rooms]()
                 //新しい部屋に入室したら, 前いた部屋からユーザーを消去
-                var flag = 0
                 for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
                     for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
                         if name == iconName{ //本人の名前があったら(本人が入室していたら)
                             print("消去") //その部屋からユーザーを消去
+                            
                             Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
                                 if let err = err {
                                     print("Error removing document: \(err)")
-                                    //flag = 1
                                 } else { //消去に成功
                                     print("FireStore消去")
-                                   // flag = 1
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
                                     //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
@@ -163,30 +162,12 @@ class AddViewController: UIViewController {
                         }
                     }
                 }
-        
-               /* let date2 = Date(timeInterval: 10, since: enterTime as Date)
-                // 年月日時分秒をそれぞれまとめて取得
-                let targetDate = Calendar.current.dateComponents([.second], from: date2)
-                // トリガーの作成
-                let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
-                // 通知コンテンツの作成
-                        let content = UNMutableNotificationContent()
-                        content.title = "Calendar Notification"
-                        content.body = "時間だよ！"
-                        content.sound = UNNotificationSound.default
-                 
-                // 通知リクエストの作成
-                let request = UNNotificationRequest.init(
-                                identifier: "CalendarNotification",
-                                content: content,
-                                trigger: trigger)
                 
-                // 通知をセット
-                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)*/
-                //通知機能
-                message(enter: enterTime)
                 //10s後に処理する
-                enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
+                Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
+                
+                //通知機能
+                self.message(enter: enterTime)
                 //新しく入る部屋にユーザーを追加
                 RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //FireStoreにユーザー本人を追加(入室)
                     if let err = err {
@@ -199,6 +180,8 @@ class AddViewController: UIViewController {
                         Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                         //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                         self.EnterArray()
+                        //通知機能
+                        //self.message(enter: enterTime)
                     }
                 }
             }
@@ -208,6 +191,9 @@ class AddViewController: UIViewController {
                 //print("配列：\(enterArray)")
                 if data.enterUser == uid{ //部屋に本人のidがあったら消去
                     print("消去")
+                    alert1()
+                    //通知の解除
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["CalendarNotification"])
                     RoomData.document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
                         if let err = err {
                             print("Error removing document: \(err)")
@@ -266,8 +252,9 @@ class AddViewController: UIViewController {
                                 }
                             }
                         }
-                        //通知機能
-                        message(enter: enterTime)
+                        //10s後に処理
+                        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
+                        
                         //新しく入る部屋にユーザーを追加
                         RoomData.document(uid).setData(["enterUserID": uid, "enterUserName": userName, "iconName": iconName, "enterTime": formatter.string(from: enterTime as Date)]){ err in //Firestoreの部屋にユーザー本人を追加
                             if let err = err {
@@ -280,8 +267,12 @@ class AddViewController: UIViewController {
                                Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                                 //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
                                 self.EnterArray()
+                                //通知機能
+                                //self.message(enter: enterTime)
                             }
                         }
+                        //通知機能
+                        self.message(enter: enterTime)
                         //Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
                     }
                     //break
@@ -323,23 +314,37 @@ class AddViewController: UIViewController {
         }
     }
 
+    func alert1(){
+        let alert: UIAlertController = UIAlertController(title:"お疲れ様！！", message: "ゆっくり休んで、良い夢見てね〜〜！", preferredStyle: .alert)
+        //OKボタン
+        alert.addAction(
+            UIAlertAction(
+                title: "うん！",
+                style: .default,
+                handler: {action in
+                    //self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
+                    print("OKボタンが押されました！")
+                })
+        )
+        present(alert, animated: true, completion: nil)
+    }
     
     @objc func timerUpdate(){
-        print("時間だよ！")
-        //(8時間超えるとお知らせ)通知機能をかく
+        print("time時間だよ！")
     }
     
     func message(enter: NSDate){
-        let date2 = Date(timeInterval: 10, since: enter as Date)
+        print("通知")
+        let date2 = Date(timeInterval: 3600 * 8, since: enter as Date)
         // 年月日時分秒をそれぞれまとめて取得
-        let targetDate = Calendar.current.dateComponents([.second], from: date2)
+        let targetDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date2)
         // トリガーの作成
         let trigger = UNCalendarNotificationTrigger.init(dateMatching: targetDate, repeats: false)
         // 通知コンテンツの作成
-                let content = UNMutableNotificationContent()
-                content.title = "Calendar Notification"
-                content.body = "時間だよ！"
-                content.sound = UNNotificationSound.default
+        let content = UNMutableNotificationContent()
+        content.title = "滞在時間が８時間を超えたよ！"
+        content.body = "過労には注意！しっかり休憩をとってね！！"
+        content.sound = UNNotificationSound.default
          
         // 通知リクエストの作成
         let request = UNNotificationRequest.init(

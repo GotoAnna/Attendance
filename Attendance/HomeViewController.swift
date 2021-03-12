@@ -22,6 +22,7 @@ class HomeViewController: UIViewController {
     var num: Int = 0
     var back: Int = 0
     var number: Int = 0
+    var flag = 0
     @IBOutlet weak var homeTableView: UITableView!
     
     @IBOutlet weak var createButton: UIButton!
@@ -210,30 +211,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     //セルに内容を表示
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
         
         cell.backgroundColor = UIColor.white
-            
-       if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
         cell.frameView.layer.borderColor = UIColor.init(red: 0.823, green: 0.027, blue: 0.760, alpha: 0.8).cgColor
-            cell.frameView.layer.borderWidth = 5
-        }
-        else{
-            cell.frameView.layer.borderWidth = 0
-        }
+        print("エラー:\(roomsArray[indexPath.row].roomEnterNum)")
         
         cell.roomLabel.text = roomsArray[indexPath.row].roomName
-        cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
         roomname = roomsArray[indexPath.row].roomName
-        //cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
+        
         cell.enterNum.isHidden = false
         cell.aLabel.isHidden = false
         cell.bLabel.isHidden = false
         cell.numberLabel.textColor = UIColor.black
+        print("エラー:\(roomsArray[indexPath.row].roomEnterNum)")
         if roomsArray[indexPath.row].roomEnterNum == ""{
             number = 0
             cell.enterNum.text = "0"
+            cell.frameView.layer.borderWidth = 0
         }
         else if roomsArray[indexPath.row].roomEnterNum == roomsArray[indexPath.row].roomNumber{
             number = Int(roomsArray[indexPath.row].roomEnterNum)!
@@ -242,10 +237,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.enterNum.isHidden = true
             cell.aLabel.isHidden = true
             cell.bLabel.isHidden = true
+            cell.frameView.layer.borderWidth = 5
         }
         else{
             cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
+            cell.numberLabel.text = roomsArray[indexPath.row].roomNumber
             number = Int(roomsArray[indexPath.row].roomEnterNum)!
+            cell.frameView.layer.borderWidth = 0
         }
       
         let db = Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName) //部屋名
