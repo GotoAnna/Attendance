@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04100FB425FBF80300BB8BB2 /* ICON.png in Resources */ = {isa = PBXBuildFile; fileRef = 04100FB325FBF80300BB8BB2 /* ICON.png */; };
 		0418435025E50C38003FE731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418434F25E50C38003FE731 /* AppDelegate.swift */; };
 		0418435225E50C38003FE731 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418435125E50C38003FE731 /* SceneDelegate.swift */; };
 		0418435425E50C38003FE731 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418435325E50C38003FE731 /* ViewController.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04100FB325FBF80300BB8BB2 /* ICON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ICON.png; path = ../../../../../Downloads/ICON.png; sourceTree = "<group>"; };
 		0418434C25E50C38003FE731 /* Attendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Attendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0418434F25E50C38003FE731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0418435125E50C38003FE731 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				041F05C225F3DD2300576188 /* enter.png */,
+				04100FB325FBF80300BB8BB2 /* ICON.png */,
 				041F061D25F79FD000576188 /* ICON2.png */,
 				041F061825F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png */,
 				04EB2A1D25E696D300A38A7D /* SignUpUserViewController.swift */,
@@ -336,6 +339,7 @@
 				041F05C325F3DD2300576188 /* enter.png in Resources */,
 				041F061925F79F1600576188 /* スクリーンショット 2021-03-09 21.17.35.png in Resources */,
 				0418438B25E5108C003FE731 /* GoogleService-Info.plist in Resources */,
+				04100FB425FBF80300BB8BB2 /* ICON.png in Resources */,
 				0418435925E50C39003FE731 /* Assets.xcassets in Resources */,
 				041F061E25F79FD000576188 /* ICON2.png in Resources */,
 				0418435725E50C38003FE731 /* Main.storyboard in Resources */,

@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Quality of Lab-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Attendance" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,12 +49,12 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICON2.png" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-7T-ehC">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICON.png" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-7T-ehC">
                                 <rect key="frame" x="161" y="382" width="92" height="92"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.92223674060000005" green="0.93180876970000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="wkh-7V-3Ws" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="A1v-iq-ma2"/>
                             <constraint firstItem="aGM-7T-ehC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="L8V-Z8-Myx"/>
@@ -64,7 +64,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wkh-7V-3Ws" secondAttribute="trailing" constant="40" id="nMc-e1-NF2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="2CA-I6-lxT"/>
+                    <navigationItem key="navigationItem" title="Quality of Lab" id="2CA-I6-lxT"/>
                     <connections>
                         <outlet property="loginButton" destination="1p8-rY-AJI" id="G72-yh-ziw"/>
                         <outlet property="signUpButton" destination="PuH-LD-MeO" id="6GJ-KU-ZWq"/>
@@ -185,7 +185,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KEG-K2-xRa"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.92216795679999997" green="0.93199211360000001" blue="0.99216622109999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="KEG-K2-xRa" firstAttribute="trailing" secondItem="xGS-Kv-FE2" secondAttribute="trailing" constant="40" id="Yxa-xq-3pK"/>
                             <constraint firstItem="xGS-Kv-FE2" firstAttribute="leading" secondItem="KEG-K2-xRa" secondAttribute="leading" constant="40" id="dSa-dV-nvo"/>
@@ -290,7 +290,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TnM-dH-Z2Y"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.92216795679999997" green="0.93199211360000001" blue="0.99216622109999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="SeK-OC-EBW" firstAttribute="centerX" secondItem="bCD-NC-U1v" secondAttribute="centerX" id="Tv5-uX-Ce6"/>
                             <constraint firstItem="TnM-dH-Z2Y" firstAttribute="trailing" secondItem="SeK-OC-EBW" secondAttribute="trailing" constant="40" id="gFh-rE-HPC"/>
@@ -815,7 +815,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jFQ-3m-mPu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.92223674060000005" green="0.93180876970000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Qch-ty-e9O" firstAttribute="centerY" secondItem="tXh-7U-eo2" secondAttribute="centerY" id="c1R-C9-EaB"/>
                             <constraint firstItem="Qch-ty-e9O" firstAttribute="centerX" secondItem="tXh-7U-eo2" secondAttribute="centerX" id="chE-Pr-5Vh"/>
@@ -878,7 +878,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ICON2.png" width="92" height="92"/>
+        <image name="ICON.png" width="92" height="92"/>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">

@@ -70,11 +70,10 @@ class HomeViewController: UIViewController {
         //UIRefreshControlを設置、下スクロール更新
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "再読み込み中")
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        homeTableView.addSubview(refreshControl)
-        
-        //enterTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: false)
-
+        //refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        //homeTableView.addSubview(refreshControl)
+        homeTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
     @objc func timerUpdate(){
@@ -214,7 +213,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellid") as! CustomTableViewCell
         
         cell.backgroundColor = UIColor.white
-        cell.frameView.layer.borderColor = UIColor.init(red: 0.823, green: 0.027, blue: 0.760, alpha: 0.8).cgColor
+        cell.frameView.layer.borderColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1).cgColor
         print("エラー:\(roomsArray[indexPath.row].roomEnterNum)")
         
         cell.roomLabel.text = roomsArray[indexPath.row].roomName

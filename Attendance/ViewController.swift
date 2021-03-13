@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setUpElements()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         self.navigationController?.navigationBar.backgroundColor = UIColor.init(red: 0.364, green: 0.450, blue: 0.917, alpha: 1)
         

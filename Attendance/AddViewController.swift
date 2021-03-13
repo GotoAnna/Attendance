@@ -333,7 +333,7 @@ class AddViewController: UIViewController {
     
     func message(enter: NSDate){
         print("通知")
-        let date2 = Date(timeInterval: 3600 * 8, since: enter as Date)
+        let date2 = Date(timeInterval: 10, since: enter as Date)
         // 年月日時分秒をそれぞれまとめて取得
         let targetDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date2)
         // トリガーの作成
@@ -341,7 +341,7 @@ class AddViewController: UIViewController {
         // 通知コンテンツの作成
         let content = UNMutableNotificationContent()
         content.title = "滞在時間が８時間を超えたよ！"
-        content.body = "過労には注意！しっかり休憩をとってね！！"
+        content.body = "過労に注意！しっかり休憩をとってね！！"
         content.sound = UNNotificationSound.default
          
         // 通知リクエストの作成
