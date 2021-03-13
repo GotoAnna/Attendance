@@ -328,8 +328,9 @@ class AddViewController: UIViewController {
     }
     
     @objc func timerUpdate(){
-        print("time時間だよ！")
+        print("time時間だよ")
     }
+    
     
     func message(enter: NSDate){
         print("通知")
