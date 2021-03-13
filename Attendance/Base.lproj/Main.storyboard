@@ -826,6 +826,8 @@
                     <navigationItem key="navigationItem" title="作成" id="vUZ-0r-Cjl"/>
                     <connections>
                         <outlet property="createButton" destination="Z6N-AR-KZ6" id="fe1-qj-Jr1"/>
+                        <outlet property="numberLabel" destination="q3i-Md-Fsd" id="7pP-ta-ZS9"/>
+                        <outlet property="roomLabel" destination="c8f-ZY-0NG" id="1i9-tv-wl1"/>
                         <outlet property="roomnameTextField" destination="pSK-XG-EZF" id="VOF-kg-yZy"/>
                         <outlet property="roomnumberTextField" destination="79Y-Ei-TA4" id="XeZ-1Y-Bh6"/>
                     </connections>

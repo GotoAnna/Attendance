@@ -19,6 +19,10 @@ class CreateRoomViewController: UIViewController {
     
     @IBOutlet weak var createButton: UIButton!
     
+    @IBOutlet weak var roomLabel: UILabel!
+    
+    @IBOutlet weak var numberLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,6 +31,8 @@ class CreateRoomViewController: UIViewController {
         Utilities.styleTextField1(roomnumberTextField)
         Utilities.styleFilledButton(createButton)
         
+        roomLabel.textColor = UIColor.black
+        numberLabel.textColor = UIColor.black
         let tapGR: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(commitButtonTapped))
                 tapGR.cancelsTouchesInView = false
                 self.view.addGestureRecognizer(tapGR)
