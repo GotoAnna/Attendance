@@ -39,7 +39,8 @@ class SignUpUserViewController: UIViewController {
                 tapGR.cancelsTouchesInView = false
                 self.view.addGestureRecognizer(tapGR)
         
-        //authCodeTextField.isSecureTextEntry = true
+        authCodeTextField.isSecureTextEntry = true
+        passwordTextField.isSecureTextEntry = true
         //authCodeTextField.keyboardType = .alphabet
     }
     

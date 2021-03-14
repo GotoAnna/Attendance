@@ -144,8 +144,8 @@ class AddViewController: UIViewController {
                 self.enterArray = [Rooms]()
                 //新しい部屋に入室したら, 前いた部屋からユーザーを消去
                 for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
-                    for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
-                        if name == iconName{ //本人の名前があったら(本人が入室していたら)
+                    for data in roomData.uidArray{ //部屋に入室しているユーザーの中から
+                        if data == uid{ //本人の名前があったら(本人が入室していたら)
                             print("消去") //その部屋からユーザーを消去
                             
                             Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
@@ -154,6 +154,7 @@ class AddViewController: UIViewController {
                                 } else { //消去に成功
                                     print("FireStore消去")
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
+                                    Firestore.firestore().collection("room").document(roomData.roomName).updateData(["uidArray": FieldValue.arrayRemove([uid])])
                                     Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
                                     //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                                     //self.EnterArray1(name: roomData.roomName)
@@ -176,8 +177,10 @@ class AddViewController: UIViewController {
                         print("入室")
                         //self.enterButton.title = "退出"
                         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
-                        //頭文字を追加
+                        //部屋の頭文字の配列に頭文字を追加
                         Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                        //部屋のユーザーの配列にuidを追加
+                        Firestore.firestore().collection("room").document(self.enterRoom).updateData(["uidArray": FieldValue.arrayUnion([uid])])
                         //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
                         self.EnterArray()
                         //通知機能
@@ -207,6 +210,7 @@ class AddViewController: UIViewController {
                     }
                     //print("数字:\(iconName)")
                     Firestore.firestore().collection("room").document(enterRoom).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
+                    Firestore.firestore().collection("room").document(enterRoom).updateData(["uidArray": FieldValue.arrayRemove([uid])])
                     break
                 }
                 else{ //部屋に本人のidがなかったらidを追加
@@ -235,8 +239,8 @@ class AddViewController: UIViewController {
                     else{
                         //新しい部屋に入室したら, 前いた部屋からユーザーを消去
                         for roomData in roomsArray{ //roomsArray(部屋が格納されてる), 各部屋にユーザーがいるかチェック
-                            for name in roomData.iconNameArray{ //部屋に入室しているユーザーの中から
-                                if name == iconName{ //本人の名前があったら(本人が入室していたら)
+                            for data in roomData.uidArray{ //部屋に入室しているユーザーの中から
+                                if data == uid{ //本人の名前があったら(本人が入室していたら)
                                     print("ELSE消去") //その部屋からユーザーを消去
                                     Room.document(roomData.roomName).collection("enterUser").document(uid).delete() { err in //FireStoreの部屋からユーザー本人を消去
                                         if let err = err {
@@ -244,6 +248,8 @@ class AddViewController: UIViewController {
                                         } else { //消去に成功
                                             print("FireStore消去")
                                             Firestore.firestore().collection("room").document(roomData.roomName).updateData(["iconNameArray": FieldValue.arrayRemove([iconName])])
+                                            
+                                            Firestore.firestore().collection("room").document(roomData.roomName).updateData(["uidArray": FieldValue.arrayRemove([uid])])
                                             
                                             Firestore.firestore().collection("room").document(roomData.roomName).updateData(["roomEnterNum": String(Int(roomData.roomEnterNum)! - 1)])
                                             //部屋にいるユーザーをenterArrayに格納し直し, TableViewを更新
@@ -263,8 +269,12 @@ class AddViewController: UIViewController {
                                 print("FireStore追加")
                                 //self.enterButton.title = "退出"
                                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onClickEnterButton))
-                            
-                               Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                                //部屋の頭文字の配列に頭文字を追加
+                                print("エラー：\(iconName)")
+                                Firestore.firestore().collection("room").document(self.enterRoom).updateData(["iconNameArray": FieldValue.arrayUnion([iconName])])
+                                
+                                //部屋のユーザーの配列にuidを追加
+                                Firestore.firestore().collection("room").document(self.enterRoom).updateData(["uidArray": FieldValue.arrayUnion([uid])])
                                 //部屋にいるユーザーをenterArrayに格納し直し, TableViewに反映
                                 self.EnterArray()
                             }
@@ -334,7 +344,7 @@ class AddViewController: UIViewController {
     
     func message(enter: NSDate){
         print("通知")
-        let date2 = Date(timeInterval: 10, since: enter as Date)
+        let date2 = Date(timeInterval: 3600 * 8, since: enter as Date)
         // 年月日時分秒をそれぞれまとめて取得
         let targetDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date2)
         // トリガーの作成

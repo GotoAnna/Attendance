@@ -80,22 +80,20 @@ class CreateRoomViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         else{
-            Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
+            //Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
             //addDocument(data: ["roomname":roomName, "roomnumber":roomNumber])
             
             let alert: UIAlertController = UIAlertController(title:"保存", message: "保存が完了しました。", preferredStyle: .alert)
-            
-            //OKボタン
-            alert.addAction(
-                UIAlertAction(
-                    title: "OK",
-                    style: .default,
-                    handler: {action in
+            let cancelAction = UIAlertAction(title: "キャンセル", style: .default)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) in
+                Firestore.firestore().collection("room").document(roomName).setData(["roomName": roomName, "roomNumber": roomNumber, "roomEnterNum": "0"])
                         self.navigationController?.popViewController(animated: true) //ボタンが押された時の動作
                         print("OKボタンが押されました！")
-                    }
-                    )
-            )
+                
+            }
+            //OKボタン
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         }
     }

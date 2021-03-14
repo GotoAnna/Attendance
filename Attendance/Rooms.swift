@@ -19,6 +19,7 @@ class Rooms{
     let iconName: String!
     let enterTime: String!
     var iconNameArray = [String]()
+    var uidArray = [String]()
     
     init(document: QueryDocumentSnapshot) {
     
@@ -32,6 +33,7 @@ class Rooms{
         self.iconName = Dic["iconName"] as? String ?? ""
         self.enterTime = Dic["enterTime"] as? String ?? ""
         self.iconNameArray = Dic["iconNameArray"] as? [String] ?? []
+        self.uidArray = Dic["uidArray"] as? [String] ?? []
         //print("Dic\(self.iconNameArray)")
     }
 }

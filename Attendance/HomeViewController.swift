@@ -150,17 +150,26 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logoutButton(){
-        do{
-            try Auth.auth().signOut()
-            //let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
-            //let ViewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
-            //self.present(ViewController, animated: true, completion: nil)
-            view.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "Navi")
-            view.window?.makeKeyAndVisible()
+        let alert: UIAlertController = UIAlertController(title:"ログアウト", message: "ログアウトしてもよろしいですか？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .destructive)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) in
+            print("OKボタンが押されました！")
+            do{
+                try Auth.auth().signOut()
+                //let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
+                //let ViewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+                //self.present(ViewController, animated: true, completion: nil)
+                self.view.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "Navi")
+                self.view.window?.makeKeyAndVisible()
+            }
+            catch{
+                print("ログアウトに失敗しました\(error)")
+            }
         }
-        catch{
-            print("ログアウトに失敗しました\(error)")
-        }
+        //OKボタン
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func trashButton(_ sender: Any) {
@@ -236,7 +245,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             cell.enterNum.isHidden = true
             cell.aLabel.isHidden = true
             cell.bLabel.isHidden = true
-            cell.frameView.layer.borderWidth = 5
+            //cell.frameView.layer.borderWidth = 5
         }
         else{
             cell.enterNum.text = roomsArray[indexPath.row].roomEnterNum
@@ -399,16 +408,29 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 print("消去部屋名:\(roomsArray[indexPath.row].roomName!)")
                 print("消去人数:\(Int(roomsArray[indexPath.row].roomEnterNum))")
                 if Int(roomsArray[indexPath.row].roomEnterNum) == 0{
-                    Firestore.firestore().collection("room").document(roomsArray[indexPath.row].roomName).delete() { err in
-                         if let err = err {
-                             print("Error removing document: \(err)")
-                         } else {
-                             print("部屋名を消去")
+                    let alert: UIAlertController = UIAlertController(title:"消去", message: "消去してもよろしいですか？", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "キャンセル", style: .default)
+                    let okAction = UIAlertAction(title: "消去", style: .destructive) { (action: UIAlertAction) in
+                            //ボタンが押された時の動作
+                        print("OKボタンが押されました！")
+                        Firestore.firestore().collection("room").document(self.roomsArray[indexPath.row].roomName).delete() { err in
+                             if let err = err {
+                                 print("Error removing document: \(err)")
+                             } else {
+                                 print("部屋名を消去")
+                             }
                          }
-                     }
-                         
-                     roomsArray.remove(at: indexPath.row)
-                     tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+                             
+                        self.roomsArray.remove(at: indexPath.row)
+                         tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+                        
+                    }
+                    //OKボタン
+                    alert.addAction(cancelAction)
+                    alert.addAction(okAction)
+                    present(alert, animated: true, completion: nil)
+                    
+                   
                 }
                 else{
                     let alert: UIAlertController = UIAlertController(title:"エラー", message: "入室しているユーザーがいるため消去できません。", preferredStyle: .alert)
